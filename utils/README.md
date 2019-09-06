@@ -9,7 +9,11 @@ next: /modules/
 Util Widgets provide a complete solution that Minecraft does not support that easily out of the box and make your workflow easier and faster.
 They are often generating packs, scoreboards and files themselves.
 
+
 ## Timeout
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/OMUokMwfalA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A Timeout is a simple delay in your code. It is done with the Schedule Command and generates a File under the hood.
 
 | constructor |  |
@@ -31,6 +35,9 @@ Timeout(
 ⇒ say Timeout reached
 ```
 ## Timer
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/xRPOVAzH7XE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A Timer is very similar to a Timeout, but instead of delaying the code it is run over and over again always delayed by the ticks. In the end it creates a loop with slower tick speed as 20t/s to perform some operations more performant.
 
 | constructor |  |
@@ -69,6 +76,9 @@ Timer.stop("timer2")
 This uses a tag internally to stop scheduling the next timeout if the tag is existing.
 
 ## Repeat
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/JvF4r5OZTcw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Repeat Widget repeats a given action multiple times with a tick delay.
 
 |constructor| |
@@ -91,7 +101,7 @@ Repeat("repeat1",
 ⇒ function mypack:timers/repeat1
 ```
 This would save the current iteration in a fake player repeat1 in objd_repeat and generate a schedule function:
-```mcfunction
+```
 # timers/repeat1
 tellraw @a [{"text":"Console > ","color":"dark_aqua"},{"text":"test"}]
 scoreboard players add repeat1 objd_repeat 1
@@ -102,6 +112,9 @@ This function is executed until the score becomes 11.
 video
 dQvZRGUH4F8
 ## ArmorStand
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/dQvZRGUH4F8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 An armorstand can be created with the Summon Widget, but there is also a specific Widget with special properties for an ArmorStand.
 
 |constructor| |
@@ -186,6 +199,10 @@ To keep the entity alive there is`AreaEffectCloud.persistent` that sets the age 
 AreaEffectCloud.persistent(Location.here(),tags:["new_tag"])
 ⇒ summon area_effect_cloud ~  ~  ~  {"Duration":-1,"WaitTime":-2147483648,"Tags":["new_tag"],"Age":-2147483648}
 ```
+## Hologram
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/4JsmLMeH3J0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A Hologram shows a floating text at a specific Location using Armorstands.
 
 | constructor |  |
@@ -217,6 +234,9 @@ If you wish you can also assign each line a seperate TextComponent with `Hologra
 |...| same as Hologram|
 
 ## RandomScore
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/h8Bni09hVTI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The RandomScore Widget assigns a random value to a score using the UUID of an areaeffectcloud.
 
 | constructor |  |
@@ -240,7 +260,7 @@ RandomScore(
 ⇒ function mypack:objd/random
 ⇒ scoreboard players add @s objd_random 5
 ```
-```mcfunction
+```
 # objd/random1
 summon area_effect_cloud ~ ~ ~ {"Tags":["objd_random"]}
 execute store result score @s objd_random run data get entity @e[tag=objd_random,sort=nearest,limit=1] UUIDMost 0.0000000001
@@ -276,6 +296,9 @@ AroundLocation(
 ⇒ setblock ~ ~ ~-1 stone
 ```
 ## Raycast
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/30Ig-zNUx8w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Raycast Widget is one of the most powerful widgets by giving you many options to configure raytracing in Minecraft.
 Internally it uses local coordinates, a distance counter and recursion.
 
@@ -299,7 +322,7 @@ Raycast(
 )
 ⇒ execute as @a at @s anchored eyes positioned ^  ^  ^ anchored feet run function mypack:objd/ray1
 ```
-```mcfunction
+```
 # objd/ray1 file
 execute unless block ~ ~ ~ minecraft:air run tag @s add objd_ray_hit
 execute unless entity @s[tag=objd_ray_hit] positioned ^ ^ ^1 run function mypack:objd/ray1
@@ -343,7 +366,7 @@ Raycast(
 ⇒ scoreboard players set @s objd_count 0
 ⇒ execute as @a at @s anchored eyes positioned ^ ^ ^ anchored feet run function mypack:objd/ray1
 ```
-```mcfunction
+```
 # objd/ray1 file
 # our blocktag:
 execute unless block ~ ~ ~ #minecraft:transparent run tag @s add objd_ray_hit
@@ -377,7 +400,7 @@ Do.Until(Tag("istrue",entity:  Entity.All()),then:[
 ])
 ⇒ execute unless entity @a[tag=istrue] run function  mypack:objd/doloop1
 ```
-```mcfunction
+```
 # objd/doloop1 file
 say repeat
 execute unless entity @a[tag=istrue] run function  mypack:objd/doloop1
@@ -406,9 +429,78 @@ ForEach(
 ⇒ scoreboard players set #objd_foreach objd_count 0
 ⇒ execute if score #objd_foreach objd_count < @a myscore run function mypack:objd/foreach2
 ```
-```mcfunction
+```
 # objd/foreach2 file
 tellraw  @a  [{"text":"Console > ","color":"dark_aqua"},{"score":{"name":"#objd_foreach","objective":"objd_count"}}]
 scoreboard players add #objd_foreach objd_count 1
 execute if score #objd_foreach objd_count <= @a myscore run function  mypack:objd/foreach2
+```
+## Builder
+The Builder Widget embedds a builder function in your Widget Tree. Here you can provide a similar method to the generate method of a Widget. This allows you to define new variables, make calculations and conditions.
+
+| constructor |  |
+|--|--|
+|BuilderFunction| a Function that takes in the context and returns a Widget. |
+
+**Example:**
+```dart
+Builder(
+	(Context context){
+		var var1 = 1
+		if(true) return Widget()
+		return Widget()
+	}
+)
+```
+
+## ItemBuilder
+The ItemBuilder provides an interface to convert a List into Widgets using a Builder.
+Each Item maps to a new Widget that you return in the build Function.
+
+| constructor\<T\> |  |
+|--|--|
+|items| the List of Type T |
+|build| the build function, takes in one item(type T) and returns a Widget |
+
+**Example:**
+
+```dart
+List<String> list = ["hello","world"]
+ItemBuilder<String>(
+	items: list,
+	build: (String item) => Log(item),
+)
+==> For.of([Log("hello"),Log("world")])
+```
+
+## StraitWidget
+A StraitWidget allows you to build up a List of Widgets inside of a Widget. Like the Builder, you have to provide a Function, which takes in a List and then you can add on to this list.
+
+| constructor |  |
+|--|--|
+|Function| the strait function that gives you a List of Widgets to modify |
+
+**Example:**
+```dart
+StraitWidget(
+	(List<Widget> widgets){
+		widgets.add(Command(...))
+		...
+	}
+)
+```
+### Queables
+
+StraitWidget supports the RestAction and Entity Queables.
+Read more about Queables [here](/basic#queables)
+
+### Return Value
+It is also possible to return something(Widget, Queable, RestAction, List):
+```dart
+StraitWidget(
+	(List<Widget> widgets){
+		return Entity.Self().kill()
+	}
+)
+==> kill @s
 ```

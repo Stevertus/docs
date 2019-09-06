@@ -22,6 +22,9 @@ Comment.Null() // dead end in widget tree
 ```
 
 ## Execute
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/nhiEE9vY-78" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 One of the most used commands has a widget too. The execute command has multiple syntaxes that allow to manipulate the position, executer or condition.
 
 |constructor | |
@@ -210,6 +213,9 @@ Entity.All())
 ```
 
 ## If
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/fnC6_Ibm5q0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The if widget accepts a Condition and runs the children if the condition is true.
 If just gives you an execute wrapper with if and else statements. The conditions have their own class.
 
@@ -250,6 +256,9 @@ If.not(
 ```
 
 ## Condition
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/fnC6_Ibm5q0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Condition class defines conditions for the if widget and more. It can also combines conditions and generates an argument list.
 
 |constructor| |
@@ -574,6 +583,9 @@ Say(
 ```
 
 ## Give
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/6aS3K3khuYI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Gives a item to a player.
 
 |constructor| |
@@ -627,6 +639,9 @@ This works the same with ReplaceItem.block:
 video
 q8cI-Irpv9Q
 ## Particle
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/q8cI-Irpv9Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The particle command spawns particles in the world to enhance certain graphics.
 
 |constructor| |
@@ -669,6 +684,9 @@ Particle.block(Block.sandstone,location:Location.here())
 ```
 
 ## Summon
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/YjWIazvYCGg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The summon class creates a new entity at a given location.
 
 |constructor| |
@@ -710,6 +728,9 @@ Summon(
 ```
 
 ## Schedule
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/OMUokMwfalA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Schedule schedules a file for the future. It delays its execution by the given ticks.
 
 |constructor| |

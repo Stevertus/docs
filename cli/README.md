@@ -5,6 +5,7 @@ prev: /modules/
 next: false
 ---
 # CLI
+
 The objD CLI is an additional package to handle execution, building and deploying of your project. To activate the global package(will be available anywhere on your system), run this command:
 ```
 pub global activate objd_cli

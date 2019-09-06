@@ -6,6 +6,7 @@ next: /wrappers/
 ---
 # Basics
 ## Widget
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/2Df24YXR5to" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 A widget is the base element for basically everything in objD.
 
 |property | |
@@ -115,10 +116,11 @@ The File constructor has two required arguments:
 
 |constructor | |
 |--|--|
-| path | the desired file path going from `/data/:packId:/functions/` on |
+| String | the desired file path going from `/data/:packId:/functions/` on |
 | child| the content of the file |
 | execute | bool if the function should be executed directly(optional) |
 | create | bool if the file should be created or just interpreted with execute(optional, default = true)|
+| pack | overrides the automatically detected namespace(optional) |
 
 The File class can be used as often as you want and where you want, so you can also define a new file in a For container for example.
 **Example:**
@@ -126,7 +128,7 @@ The File class can be used as often as you want and where you want, so you can a
 Pack(
 	name:"tpcraft",
 	main: File(
-		path:"main",
+		"main",
 		// and defining a new file inside of an widget
 		child: File.execute( // same as execute: true
 			path: 'new'
@@ -135,7 +137,32 @@ Pack(
 	),
 )
 ```
+## IndexedFile
+The IndexedFile behaves similar to File. Additionally it makes sure that each File, created with IndexedFile, is unique and does not get overwritten. In order to do that IndexedFile saves for each inputted name an id, which gets incremented after each use.
+This helps with large scale third-party file generation for example with [Group](#group), Execute or If.
 
+|constructor | |
+|--|--|
+| String | the name of the desired file |
+| child| the content of the file |
+| execute | bool if the function should be executed directly(optional) |
+| custom | a custom name that overrides the id(useful for customization in Execute) |
+| path | an optional folder to add the new function(like `objd` for Example) |
+| pack | overrides the automatically detected namespace |
+
+**Example:**
+```dart
+IndexedFile("index",child:...)
+IndexedFile("index",child:...)
+IndexedFile(
+	"index",
+	child:...,
+	execute: true,
+	path: "objd",
+	pack: "custom"
+)
+```
+Creates 3 files: `index1, index2, objd/index3` and adds `function custom:objd/index3` into the current file.
 
 ## Extend
 Extend is very similar to File, but instead of creating a new file it adds content to an existing file.
@@ -178,6 +205,7 @@ say hey
 
 
 ## For
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/4P4o3a6xyUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 The For class enables you to add multiple endpoints to one Widget.
 
 There is always a List of Widgets involved.
@@ -265,6 +293,7 @@ The slashes are automatically filtered out.
 
 
 ## Group
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/egLIzL5i4wQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 The group groups actions similar to for but has an option to prefix each action and encapsulate the content in a new file.
 
 |constructor | |
@@ -288,7 +317,47 @@ Group(
 	groupMin: 2
 ),
 ```
+## Gson
+Minecrafts Data is stored in the nbt format. Each property in therefore encoded into key-value pairs(json format).
+Additionally Minecraft introduced gson, which adds types.
+The [gson](https://pub.dev/packages/gson) package handles the encoding and decoding of Minecrafts format in objD and provides dart wrappers for the specific types.
+### Usage
 
+To decode you can use
+
+```dart
+gson.decode("{...}");
+```
+
+and to encode you can use
+
+```dart
+gson.encode({...}); 
+```
+That means, when you need the gson string somewhere, you can input a Map or a List in to encode.
+For most of the usecases the integrated Widgets to this automatically(Entity,Data,...) and generate valid gson out of the box.
+
+### Types
+
+Additionally to the dart types String,int, double, Map and List gson adds some specific types:
+
+|Type|Example|Result|
+|--|--|--|
+|String|"a"|"a"|
+|int|0|0|
+|Map|{"a":"a"}|{a:"a"}|
+|List|["a"]|["a"]|
+||||
+|Byte|Byte(20)|20b|
+|Boolean|true|1b|
+|Float|Float(90)|90f|
+|Double|Double(0.75)|0.75d|
+|Short|Short(10)|10s|
+|Long|Long(10000)|10000l|
+
+::: tip
+For more information take a look at the Package at [pub.dev/packages/gson](https://pub.dev/packages/gson) or visit the [example](https://pub.dev/packages/gson#-example-tab-) 
+:::
 
 ## Entity
 
@@ -329,7 +398,7 @@ Entity.Selected().storeResult(
 ```
 ### Queables
 
-Queables are methods on a selected entity that can be queued.
+Queables behave like normal Methods when used in the Widget tree. With it you can for Example use:
 
 |method | function |
 |--|--|
@@ -363,6 +432,29 @@ Queables are methods on a selected entity that can be queued.
 |joinTeam|entity joins the given team|
 |leaveTeam|entity leaves the current team|
 |forEach|executes for each given Entity that fulfills the selector a Function with a List of Widgets(see example)|
+
+**Example:**
+```dart
+Entity.Self().kill()
+
+⇒ kill @s
+```
+
+However, you can as well use these Methods together with [StraitWidget](/utils#straitwidget) and add the `.queue()` method to let objd automatically add the generated Widget to the Widget list.
+This makes the code more readable.
+
+**Example:**
+```dart
+StraitWidget(
+	(List<Widget> widgets){
+		Entity.Self().kill().queue()
+		widget.add(...)
+	}
+)
+
+⇒ kill @s
+⇒ ...
+```
 
 ### Sort
 |Sort|
@@ -421,10 +513,12 @@ Say(
 |specific constructors|  |
 |--|--|
 |Entity.Selected(...)| creates an entity with @s|
+|Entity.Self(...)| Entity.Selected, but shorter|
 | Entity.Player(...) | creates an entity with @p |
 | Entity.PlayerName(String) | creates an entity with an implicit name |
 |Entity.All(...)| creates an entity with @a|
 |Entity.Random(...)| creates an entity with @r|
+|Entity.Select(Selector)| takes in a Selector to select the Entity|
 |Entity.clone(Entity)| creates a new instance of an already existing Entity object |
 ### Entity.not
 With the not function you can negate specific arguments. It takes in the same options as `Entity()`.
@@ -453,9 +547,12 @@ Entity ent1 = Entity(type:EntityType.sheep)
 ent1.setValues(distance:Range(to:1))
 ⇒ @e[type=sheep,distance=..1] 
 ``` 
-
+### Selector
 
 ## Tag
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/082d9Jb9eOc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A tag saves a boolean value with an entity inside the game.
 
 |constructor|  |
@@ -501,6 +598,9 @@ Tag("mytag",entity:Entity.Selected()).removeIfExists(
 
 
 ## Scoreboard
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/WCzHHjScj28" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A scoreboard objective holds values, kind a like a Variable inside Minecraft. The Scoreboard class just handles adding or removing objectives. The value assignment is handled by the Score class.
 
 |constructor|  |
@@ -539,6 +639,9 @@ With `Scoreboard.setdisplay` you can display the values:
 
 
 ## Score
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/WCzHHjScj28" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The score class is the basis for setting values, calculating with scores and checking the values.
 It implements one base class with no functionality and several methods to do actions:
 
@@ -995,6 +1098,10 @@ myrot.getDirection() ⇒ "west"
 
 
 ## Data
+
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/06IiFVCs1x4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Data Widgets allows you to edit nbt data of Entities or Blocks.
 
 |constructor| |
@@ -1100,6 +1207,9 @@ Data.fromScore(
 
 
 ## Item
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/6aS3K3khuYI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Item class represents an item in an inventory in Minecraft. It is used in the [Give]() or Nbt Commands.
 
 > This Class is incomplete, more functionality soon...

@@ -5,6 +5,9 @@ prev: false
 next: /basics/
 ---
 # Guide
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/yJLpQVRSLD8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Why a framework?
 A framework is a set of utilities to reduce the amount of repetitive work.
 I've tried many ways in the past to achieve a quick and easy way to generate Datapacks for Minecraft: A own programming language [mcscript](https://stevertus.com/mcscript), several graphical online generators at [stevertus.com](https://stevertus.com) or premade utilities.
@@ -19,6 +22,9 @@ The generation of Datapacks is **easy**,**fast** and aims to be **less repetitiv
 You need the Dart SDK for this framework. Download and install it from [dartlang.org](https://www.dartlang.org/tools/sdk)
 
 I would also recommend Visual Studio Code along with the dart plugin to edit dart files very conveniently.
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/jBH1xL0FgVw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 Make a new folder that will house your project wherever you want(I would recommend datapacks folder).
 
@@ -41,6 +47,7 @@ You can also generate a full project with a console command. [read more](https:/
 :::
 
 ## Getting started
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/dCc_uED6nbs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 Let's get started and create our first dart file with `lib/main.dart` file. 
 
 Then we import the framework with:

@@ -2,12 +2,14 @@
 sidebar: auto
 footer: MIT Licensed | Copyright © 2019 Stevertus
 prev: /wrappers/
-next: /modules/
+next: /utils/
 ---
 # Texts and Strings
 
-In Minecraft text in the chat or as title is defined with JSON-data. objD makes the JSON part of it easier by utilizing a few classes:
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/wGpHZ2QNkgA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+In Minecraft text in the chat or as title is defined with JSON-data. objD makes the JSON part of it easier by utilizing a few classes:
+## TextComponent
 |TextComponent| |
 |--|--|
 |String|the text displayed (required)|
@@ -186,6 +188,9 @@ Fires on mouse over, Part of TextComponent.
 |TextClickEvent.entity(String,String,String)|displays a dummy entity with name, type and UUID(in this order))|
 
 ## Log
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/bt8HPbia23M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The log widgets displays a console logging in the players chat. That way you can quickly check execution times, score values, numbers, booleans and entities.
 
 |constructor||
@@ -204,6 +209,9 @@ Log(Score(Entity.Selected(),"objective"),to: Entity.Selected())
 ```
 
 ## Title
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/wGpHZ2QNkgA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 To display our TextComponent, we need the `/title` command and the Title class wrapper.
 
 |constructor||
@@ -293,6 +301,9 @@ Tellraw(
 ⇒ tellraw @p [{"text":"hey","color":"black"}]
 ```
 ### Item.Book
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/rqxkHukgizA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 This provides a book generator to use TextComponents with Books.
 
 | Item.Book |  |
@@ -303,51 +314,6 @@ This provides a book generator to use TextComponents with Books.
 |...| same as **Item**|
 
 The page itself is another class:
-| BookPage |  |
-|--|--|
-| content | either a String, TextComponent or List of TextComponents |
-
-Or with a custom font character:
-
-|BookPage.customFont|  |
-|--|--|
-| String | your custom character(\u[HEX]) |
-
-A possible book could look like this:
-
-```dart
-Item.Book(
- [
-   BookPage("This is the title page"),
-   BookPage(
-     TextComponent("Colored text",color:Color.Blue),
-   ),
-   BookPage.customFont("\uEaa2"),
-   BookPage([
-     TextComponent("one text"),
-     TextComponent(
-	     "another clickable text",
-	     clickEvent:TextClickEvent.change_page(0)
-     )
-   ])
- ],
- title: "my book",
- lore: [TextComponent("This is my description")]
-)
-⇒ minecraft:written_book{"title":"my book","author":"","pages":["[{\"text\":\"This is the title page\"}]","[{\"text\":\"Colored text\",\"color\":\"blue\"}]","[{\"text\":\"\uEaa2\",\"color\":\"white\"}]","[{\"text\":\"one text\"},{\"text\":\"another clickable text\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"0\"}}]"],"display":{"Lore":["{\"text\":\"This is my description\"}"]}}
-```
-### Item.Book
-This provides a book generator to use TextComponents with Books.
-
-| Item.Book |  |
-|--|--|
-| List of BookPage | content of the pages |
-| title | a String to give the book a title(optional) |
-|author| displays an author message (optional) |
-|...| same as **Item**|
-
-The page itself is another class:
-
 | BookPage |  |
 |--|--|
 | content | either a String, TextComponent or List of TextComponents |

@@ -6,6 +6,8 @@ next: /cli/
 ---
 
 ## Module
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/XgJ74JBXoco" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A Module extends the functionality of a Widget. It allows deeper intregration and file generation.
 
 The Module is therefore mostly used in your tick function or with the modules provider of the Pack.
@@ -32,8 +34,10 @@ The registered files are just added to the pack as if they were defined in it or
 
 A Module can still be used as a widget everywhere and also handles conditions and groups.
 
-[//]: # (modules/score_timer)
 ## ScoreTimerModule
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/fAV0w1JZ7WE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The ScoreTimerModule implements a continuous timer with a delay of a number of ticks. It therefore uses a Score to count up or down in steps and resets to the start value afterwards. 
 
 > To work probably this has to be executed every tick or added to the Packs modules.
