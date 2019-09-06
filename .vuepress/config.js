@@ -1,5 +1,4 @@
 module.exports = {
-    plugins: ['@vuepress/pwa'],
     title: 'ObjD',
     description: 'objD is a framework for developing Datapacks for Minecraft.',
     head: [
@@ -27,5 +26,11 @@ module.exports = {
             { text: 'Modules', link: '/modules/' },
             { text: 'CLI', link: '/cli/' },
         ],
-    }
+    },
+    plugins: {
+        '@vuepress/pwa': {
+            serviceWorker: true,
+            updatePopup: true
+        }
+    },
 }
