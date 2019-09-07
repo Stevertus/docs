@@ -12,7 +12,7 @@ module.exports = {
         ['meta', { name: 'msapplication-TileImage', content: '/icons/icon-144x144.png' }],
         ['meta', { name: 'msapplication-TileColor', content: '#1069b4' }],
         ['script', {}, 'var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101207393)'],
-        ['script', { async: true, src: '//static.getclicky.com' }],
+        ['script', { async: true, src: '//static.getclicky.com/js' }],
     ],
     dest: "docs",
     themeConfig: {
