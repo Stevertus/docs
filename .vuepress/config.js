@@ -11,8 +11,8 @@ module.exports = {
         ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#1069b4' }],
         ['meta', { name: 'msapplication-TileImage', content: '/icons/icon-144x144.png' }],
         ['meta', { name: 'msapplication-TileColor', content: '#1069b4' }],
-        ['script',{ content: 'var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101207393)'}],
-        ['script',{ async: true, src: '//static.getclicky.com'}],
+        ['script', {}, 'var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101207393)'],
+        ['script', { async: true, src: '//static.getclicky.com' }],
     ],
     dest: "docs",
     themeConfig: {
@@ -29,10 +29,10 @@ module.exports = {
             { text: 'CLI', link: '/cli/' },
         ],
     },
-    plugins: {
-        '@vuepress/pwa': {
+    plugins: [
+        '@vuepress/last-updated', ['@vuepress/pwa', {
             serviceWorker: true,
             updatePopup: true
-        }
-    },
+        }]
+    ],
 }
