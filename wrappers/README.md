@@ -746,7 +746,7 @@ Schedule("timer",ticks:20)
 ⇒ schedule function example:timer 20t
 ```
 
-## Teleport
+## Teleport/Tp
 Sets the location of an Entity to a new Location and Rotation(optional).
 
 |constructor| |

@@ -1007,9 +1007,10 @@ This is especially useful for `if blocks`, Fill and Clone.
 Area(x1: 100, y1: -15.75, z1: 0, x2: 2, y1: 10, z2: -10)
 ⇒ 2 -15.75 -10 100 10 0
 ```
-
+### Area.rel
 Use Area.rel if you want to select the area relative to an unknown position.
 
+### Area.fromLocations
 But if you would also like local or relative coordinates, you can always pass the locations directly:
 
 |Area.fromLocations| |
@@ -1017,6 +1018,7 @@ But if you would also like local or relative coordinates, you can always pass th
 |Location|location 1|
 |Location|location 2|
 
+### Area.fromRanges
 There is as well a constructor to construct an Area within a defined Range of a Location(Works like fill or clone).
 
 |Area.fromRanges| |
