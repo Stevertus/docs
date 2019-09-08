@@ -11,8 +11,8 @@ module.exports = {
         ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#1069b4' }],
         ['meta', { name: 'msapplication-TileImage', content: '/icons/icon-144x144.png' }],
         ['meta', { name: 'msapplication-TileColor', content: '#1069b4' }],
-        ['script', {}, 'var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101207393)'],
-        ['script', { async: true, src: '//static.getclicky.com/js' }],
+        ['script', {}, "var lyra=window.lyra||[];lyra.push(['lyra_Id', '5d74e4e574d14']);"],
+        ['script', { async: true, src: 'https://thelyra.pro/a/analytics.js' }],
     ],
     dest: "docs",
     themeConfig: {
