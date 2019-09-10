@@ -27,7 +27,7 @@ pub global run objd:[command] [args]
 * **help** - opens a help menu with all commands
 * **new** [project_name] - generates a new project from a boilerplate
 * **run** [project_root] - builds one project
-* **serve** [directory] [project_root] - watches the directory to change and builds the project on change
+* **serve** [project_root] - watches the current directory to change and builds the project on change
 * **server inject** [jar-file] - injects a server file(use bukkit with plugins to reload automatically) before starting the server(The file is not included in the package due to legal reasons)
 * **server start** [world_dir] - copies the world into the server directory and starts the server
 
@@ -52,7 +52,7 @@ void main(List<String> args) {
 This allows you to use the arguments in the execution command, like:
 * `dart index.dart arg1 --min` 
 * `objd run index.dart arg1 --min` 
-* `objd serve . index.dart --min` 
+* `objd serve index.dart --min` 
 
 **All Available Arguments:**
 * `--hotreload`: Saves the state of your project and compares just the latest changes.
@@ -66,7 +66,7 @@ In Production Comments and line breaks are removed and every widget can access t
 The hotreload option is an experimental feature, that just looks at the things you changed since the last build. This can improve performance significantly especially for big projects with many generated mcfunctions.
 
 This feature is enabled by default for `objd serve`, if you include the args.
-You can disable it with the `-full` option.
+You can disable it with the `--full` option.
 
 **How it works:**
 
