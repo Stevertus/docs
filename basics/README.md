@@ -547,7 +547,6 @@ Entity ent1 = Entity(type:EntityType.sheep)
 ent1.setValues(distance:Range(to:1))
 ⇒ @e[type=sheep,distance=..1] 
 ``` 
-### Selector
 
 ## Tag
 
