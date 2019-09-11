@@ -23,3 +23,7 @@ jobs:
         npm run docs:build
       env:
         CI: true
+  publish:
+    needs: [build]
+    steps:
+    - uses: actions/github-packages@master
