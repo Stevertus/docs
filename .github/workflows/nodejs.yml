@@ -29,5 +29,5 @@ jobs:
     steps:
     - uses: maxheld83/ghpages@v0.1.1
       env:
-        BUILD_DIR: "public/"
+        BUILD_DIR: "docs/"
         
