@@ -66,6 +66,9 @@ ScoreTimerModule(
 
 [//]: # (modules/click_event)
 ## ClickEvent
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/KpdIrlhxdhk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The ClickEvent Module uses the trigger of a carrot on a stick to register right clicks with a scoreboard and execute a [onClick] Widget.
 
 This module has to be executed every tick to work!

@@ -247,7 +247,7 @@ There is also an other Constructor for looping through a given list of widgets:
 ```dart
 File(
 	path:"for_of",
-	child: For.of(List<Widget>[
+	child: For.of([
 		Command('say 1'),
 		Command('say 2'),
 		Command('say 3')
@@ -270,7 +270,7 @@ But there is a more efficient way to list raw Minecraft commands. The CommandLis
 This has basically the same function as For.of just for commands.
   
 ```dart
-CommandList(List<Command>[
+CommandList([
 		Command('say 1'),
 		Command('say 2'),
 		Command('say 3')
@@ -308,7 +308,7 @@ If the children length is larger or equal groupMin a new file is created in `/ob
 ```dart
 Group(
 	prefix: "execute as @e run "
-	children: List<Widget>[
+	children: [
 		Command('say 1'),
 		Command('say 2'),
 		Command('say 3')
