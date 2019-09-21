@@ -396,9 +396,9 @@ Entity.Selected().storeResult(
 
 ⇒ execute store success entity @s Invisisble byte 1 run say hello
 ```
-### Queables
+### RestActions
 
-Queables behave like normal Methods when used in the Widget tree. With it you can for Example use:
+RestActions behave like normal Methods/Widgets when used in the Widget tree. With it you can for Example use:
 
 |method | function |
 |--|--|

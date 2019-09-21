@@ -27,7 +27,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-    - uses: maxheld83/ghpages@v0.1.1
-      env:
-        BUILD_DIR: "docs/"
+      -
+        name: Checkout
+        uses: actions/checkout@master
+      -
+        name: Deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@master
+        with:
+          target_branch: gh-pages
+          build_dir: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
