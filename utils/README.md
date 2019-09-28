@@ -276,12 +276,12 @@ A Store takes in a name, by default it already uses the current pack namespace.
 |String|name|
 |autoNamespace| bool wheater to include the namespace automatically(default = true) |
 
-Or you can directly use named constructors to modify data.
-
 **Example:**
 ```dart
 var storage = Storage("mystorage",autoNamespace:true)
 ```
+
+Or you can directly use named constructors to modify data.
 
 ### Storage.set
 Here you can set one key to a specific value.
