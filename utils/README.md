@@ -266,6 +266,116 @@ summon area_effect_cloud ~ ~ ~ {"Tags":["objd_random"]}
 execute store result score @s objd_random run data get entity @e[tag=objd_random,sort=nearest,limit=1] UUIDMost 0.0000000001
 scoreboard players operation @s objd_random %= #max objd_random
 ```
+
+## Storage
+The Storage Widget gives you easy tools to store and recieve nbt data globally.
+A Store takes in a name, by default it already uses the current pack namespace.
+
+| constructor |  |
+|--|--|
+|String|name|
+|autoNamespace| bool wheater to include the namespace automatically(default = true) |
+
+Or you can directly use named constructors to modify data.
+
+**Example:**
+```dart
+var storage = Storage("mystorage",autoNamespace:true)
+```
+
+### Storage.set
+Here you can set one key to a specific value.
+
+| Storage.set |  |
+|--|--|
+|...|same as constructor|
+|key| the Nbt key(String) |
+|value| a List, Map, String, Number or Boolean|
+
+**Example:**
+```dart
+Storage.set("mystorage",key: "test",value:5)
+⇒ data merge storage example:mystorage {"test":5}
+```
+
+### Storage.merge
+But of course you can also insert a Map with multiple keys and values.
+
+| Storage.merge |  |
+|--|--|
+|...|same as constructor|
+|nbt| the Nbt Data as Map |
+
+### Storage.get
+To get a value back, use Storage.get.
+
+| Storage.get |  |
+|--|--|
+|...|same as constructor|
+|path| the path of the data(String) |
+|scale|the double scale for numbers|
+
+### Storage.remove
+Removes certain Nbt Data.
+
+| Storage.remove |  |
+|--|--|
+|...|same as constructor|
+|key| the path of the data(String) |
+
+### Storage.modify
+Modifies Nbt Data(look at [Data Widget](/basics#data)).
+
+| Storage.modify |  |
+|--|--|
+|...|same as constructor|
+|modify| a DataModify Object |
+
+### Storage.copyData
+Copies Nbt Data from a **Data.get** Widget.
+
+| Storage.copyData |  |
+|--|--|
+|...|same as constructor|
+|data| a Data Object to copy from |
+|key|the path to copy the data into|
+
+### Storage.copyScore
+Similar to copyData is copyScore which copies the value of a score into a nbt path.
+
+| Storage.copyScore |  |
+|--|--|
+|...|same as constructor|
+|score| a Score Object to copy from |
+|key|the path to copy the data into|
+|scale| the scale of the new data(optional) |
+|datatype|the datatype that the number should take|
+
+### Methods
+All the constructors also exist as Methods and like the Score you can modify the created Storage through these.
+
+* set
+* merge
+* get
+* remove
+* modify
+* copyData
+* copyScore
+
+Check the arguments in your IDE to get more insight into these.
+
+**Example:**
+```dart
+var storage = Storage("mystorage",autoNamespace:true)
+
+storage.get("key")
+
+storage.copyScore("key",score: Score.fromSelected("score"))
+
+⇒ data get storage example:mystorage key
+⇒ execute store result storage mypack:test new byte 1 run scoreboard players get @s test
+```
+
 ## AroundLocation
 Often times you need to check blocks or entities around one Location. AroundLocation utilizes this by using just one build method for all sides:
 

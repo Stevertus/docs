@@ -323,6 +323,17 @@ If(
 ⇒ execute if block ~ ~ ~ minecraft:stone run say stone
 ```
 
+**Condition.predicate**: checks for a predicate:
+```dart
+If(
+	Condition.predicate(
+		"example:new"
+	),
+	Then:[Say('predicate true')],
+)
+⇒ execute if predicate example:new run say predicate true
+```
+
 **Condition.not**: accepts same dynamic condition types as above but negates them
 (if ⇒ unless, unless ⇒  if)
 
@@ -737,6 +748,7 @@ Schedule schedules a file for the future. It delays its execution by the given t
 |--|--|
 |String|name of a function(without namespace)|
 |ticks| the delay |
+|mode|either ScheduleMode.replace or ScheduleMode.append|
 
 You can also use Schedule.file that requires a file instead to define both in one statement.
 
@@ -744,6 +756,23 @@ You can also use Schedule.file that requires a file instead to define both in on
 ```dart
 Schedule("timer",ticks:20)
 ⇒ schedule function example:timer 20t
+```
+
+### Schedule.append
+Appends a Scheduled Function to the current Schedule.
+
+It is also possible to directly generate files with Schedule.appendFile:
+
+**Example:**
+```dart
+Schedule.append(
+	File(
+		"timer",
+		child:Log("test")
+	),
+	ticks:20,
+)
+⇒ schedule function example:timer 20t append
 ```
 
 ## Teleport/Tp
@@ -869,4 +898,12 @@ The Clear Widget removes Items from the inventory of an specified Entity.
 ```dart
 Clear(Entity.All(),Item(ItemType.apple,Count:10))
 ⇒ clear @a minecraft:apple 10
+```
+## Kill
+Kills an Entity. It defaults to Entity.Self.
+
+**Example:**
+```dart
+Kill(Entity.All())
+⇒ kill @a
 ```

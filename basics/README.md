@@ -164,6 +164,24 @@ IndexedFile(
 ```
 Creates 3 files: `index1, index2, objd/index3` and adds `function custom:objd/index3` into the current file.
 
+## RawFile
+The RawFile Widget enables you to generate your own Files right in the Wiget tree. Here you can define your own file extension, the file path and the content.
+
+|constructor | |
+|--|--|
+|String|the name of the file(with fileextension)|
+|String| the content of the file |
+|path|changes the default path(in your pack) of the new file|
+
+**Example:**
+```dart
+RawFile(
+	"predicate.json",
+	'{...}',
+	path: "/predicates",
+)
+```
+
 ## Extend
 Extend is very similar to File, but instead of creating a new file it adds content to an existing file.
 
@@ -202,7 +220,6 @@ File(
 // uses the say command in command.mcfunction:
 say hey
 ```
-
 
 ## For
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/4P4o3a6xyUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -379,9 +396,12 @@ For more information take a look at the Package at [pub.dev/packages/gson](https
 |verticalRotation|Range of the vertical facing direction|
 |isRotated|a Rotation Object for testing a specific rotation|
 |playerName|a String if you prefer to use a playername instead of arguments |
+|predicate| a String that refers to a Predicate in the Datapack |
+
+
 |**Methods** |  |
 |sort|adds a sort attribute of type [Sort]()|
-| storeResult | Command, path, scale,datatype, useSuccess |
+|storeResult | Command, path, scale,datatype, useSuccess |
 
 storeResult stores a result or success of a command in the nbt path of an entity.
 **Example:**
@@ -595,6 +615,32 @@ Tag("mytag",entity:Entity.Selected()).removeIfExists(
 ⇒ execute if entity @s[tag=mytag] run tag @s remove mytag
 ```
 
+### Operators
+
+You can use Operators to use Conditions and Assignments of new values faster.
+
+** >> **
+
+Assignes a new boolean value to the Tag(removes or adds the tag).
+
+```dart
+	Tag("test") >> true
+	⇒ /tag @s add test 
+```
+
+** & **
+
+Checks if the Tag is a certain value and returns a Condition to use in If.
+
+```dart
+	If(
+		Tag("test") ? true,
+		Then: [
+			...
+		]
+	)
+	⇒ /execute if entity @s[tag=test] run ... 
+```
 
 ## Scoreboard
 
@@ -1107,7 +1153,7 @@ The Data Widgets allows you to edit nbt data of Entities or Blocks.
 
 |constructor| |
 |--|--|
-|dynamic|The target Entity OR Block which you want to modify|
+|dynamic|The target Entity, Block or Storage which you want to modify|
 |nbt|A Dart Map containing new nbt data|
 |strNbt| option to override the nbt map with a String to support expressions like `1b` |
 |type|A String defining the operation type(default=merge)|
@@ -1125,6 +1171,7 @@ Data(
 ```
 > There are also subconstructors for each operation type(Data.merge, Data.get, Data.remove)
 
+### DataModify
 And the modify operation is also available, yet a bit more complex:
 
 |Data.modify| |
@@ -1134,7 +1181,7 @@ And the modify operation is also available, yet a bit more complex:
 |modify|A DataModify object defining which parameters you want to modify|
 
 So this is split up into a seperate class: 
-**DataModify**
+
 There are five sub operations again: set, merge, prepend, append and insert.
 All follow this constructor rules:
 
@@ -1170,6 +1217,8 @@ Data.modify(
 ⇒ data modify @s my_Custom_Path2 insert from entity @s my_Custom_Path
 ```
 
+### Data.copy
+
 A handy shortcut for that is the Data.copy constructor, which just copies a property from one path to another:
 
 |Data.copy| |
@@ -1188,6 +1237,9 @@ Data.copy(
 )
 ⇒ data modify @s my_Custom_Path2 set from block ~ ~-1 ~ Items[0].tag.display.name
 ```
+
+### Data.fromScore
+
 You can also convert a score directly to a nbt field with Data.fromScore:
 |Data.fromScore| |
 |--|--|
@@ -1205,6 +1257,20 @@ Data.fromScore(
 )
 ⇒ execute store result entity @s my_Custom_Path 1 byte run scoreboard players get @e myscore
 ```
+
+### DataStorage
+
+Since 1.15 you can store nbt data globally. To use this with objD include a DataStorage as a target.
+
+**Example:**
+```dart
+Data.merge(
+	DataStorage("example:store"),
+	nbt: {"test":true}
+)
+```
+
+Also take a look at the objD [Storage API](/utils#storage) for easier accessibility.  
 
 
 ## Item

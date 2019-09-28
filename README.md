@@ -99,3 +99,10 @@ Get started today by installing objD and playing around.
 Or
 
 [Contribute on GitHub](https://github.com/Stevertus/objD)
+
+## Get Connected With the Community and get Updates
+
+
+<iframe style="margin: 0 calc(50% - 280px)" src="https://discordapp.com/widget?id=152120147782533120&theme=light" width="560" height="700" allowtransparency="true" frameborder="0"></iframe>
+
+<div class="hero" style="padding:16px"><a class="nav-link action-button" href="https://discord.gg/WVDFXUv">Join the Discord</a></div>
