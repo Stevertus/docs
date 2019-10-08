@@ -349,6 +349,9 @@ Item.Book(
 ```
 
 ## Bossbar
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/Zb3jpRmZ8SE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Bossbar shows up on the top of a specific player screen and displays a text with a value bar.
 
 |constructor||

@@ -138,6 +138,9 @@ Pack(
 )
 ```
 ## IndexedFile
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/H141kG7Rqfc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The IndexedFile behaves similar to File. Additionally it makes sure that each File, created with IndexedFile, is unique and does not get overwritten. In order to do that IndexedFile saves for each inputted name an id, which gets incremented after each use.
 This helps with large scale third-party file generation for example with [Group](#group), Execute or If.
 

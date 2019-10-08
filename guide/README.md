@@ -144,3 +144,6 @@ class CustomWidget extends Widget {
     }
 }
 ```
+And here are a few Tips & Tricks that you might want to apply when coding with objD:
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/zT4E9RDaq9I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

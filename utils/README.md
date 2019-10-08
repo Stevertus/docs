@@ -491,6 +491,9 @@ execute if entity @s[tag=objd_ray_hit] run tag @s remove objd_ray_hit
 tag @s remove objd_ray_stop
 ```
 ## Do Until/While Loop
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/NbQ9V9N0s_E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 This Loop repeats a set of widget as long/until a condition is/becomes true.
 The Loop uses a Grouped File and Recursion to repeat commands.
 
@@ -546,6 +549,9 @@ scoreboard players add #objd_foreach objd_count 1
 execute if score #objd_foreach objd_count <= @a myscore run function  mypack:objd/foreach2
 ```
 ## Builder
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/v0v0xbSg2yQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Builder Widget embedds a builder function in your Widget Tree. Here you can provide a similar method to the generate method of a Widget. This allows you to define new variables, make calculations and conditions.
 
 | constructor |  |
@@ -584,6 +590,10 @@ ItemBuilder<String>(
 ```
 
 ## StraitWidget
+
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/HD50K0DkEuI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/HD50K0DkEuI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 A StraitWidget allows you to build up a List of Widgets inside of a Widget. Like the Builder, you have to provide a Function, which takes in a List and then you can add on to this list.
 
 | constructor |  |
