@@ -592,7 +592,6 @@ ItemBuilder<String>(
 ## StraitWidget
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/HD50K0DkEuI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/HD50K0DkEuI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 A StraitWidget allows you to build up a List of Widgets inside of a Widget. Like the Builder, you have to provide a Function, which takes in a List and then you can add on to this list.
 
