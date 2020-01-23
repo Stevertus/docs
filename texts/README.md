@@ -51,7 +51,7 @@ There are also some other data sources:
 |TextComponent.translate| |
 |--|--|
 |String|the translate key (required)|
-|conversionFlags|a List of strings that replace placeholder values(e.g $s)|
+|conversionFlags|a List containing a String, TextComponent or another List of TextComponents that replace placeholder values(e.g $s)|
 |...same properties...|from TextComponent|
 
 |TextComponent.score| |
@@ -114,6 +114,22 @@ TextComponent.blockNbt(
 ⇒ {"block":"5 10 100","nbt":"Items[0].tag.display.Name","interpret":true}
 ```
 
+
+   |TextComponent.storageNbt| |
+   |--|--|
+   |String|The name of your Storage(including namespace)|
+   |path| the path as a String |
+   |interpret|bool if nbt should be interpreted as TextComponent(optional)|
+   |...same properties...|from TextComponent|
+  
+   ```dart
+   TextComponent.storageNbt(
+   	'mypack:storage1',
+   	path: 'Custom.Stored.Text'
+   	interpret: true
+   )
+   ```
+   
 |TextComponent.lineBreak|
 |--|--|
 |This inserts a simple line break|

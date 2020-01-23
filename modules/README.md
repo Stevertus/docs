@@ -86,7 +86,7 @@ This module has to be executed every tick to work!
 ClickEvent(
 	onClick: Log("Clicked"),
 	name: "firstClick",
-	selectedItem: Item(ItemType.carrot_on_a_stick),
+	selectedItem: Item(Items.carrot_on_a_stick),
 	path: "events/"
 )
 ```

@@ -19,6 +19,55 @@ Comment.LineBreak()
 ⇒ 
 Comment.Null() // dead end in widget tree
 
+Comment.Seperate(10) 
+⇒ ##########
+
+```
+
+
+### Comment.FileHeader
+
+This constructor generates a header for a File that includes context information, a description and the author.
+
+|Comment.FileHeader | |
+|--|--|
+|String|a description of the functionality of the current file|
+|author| prints your name in the header(optional) |
+|calledFrom| tells other people where this file is called(optional)|
+|context| which entity executes the file with which position? |
+
+To avoid repeating your name all the time, objd does it automatically when set the constant Comment.Author before using it:
+```dart
+Comment.Author = 'Stevertus'
+```
+
+It is a good practise to combine the Header with the File's header property:
+**Example:**
+```dart
+File(
+    'test',
+	header: Comment.FileHeader(
+    	"tests whether the entity exists",
+    	calledFrom: "main",
+    	context: "@s",
+    ),
+)
+⇒
+################################################
+#
+# Author:
+#  Stevertus
+#
+# Description:    
+#  tests whether the entity exists
+#
+# Called in:
+#  main
+#
+# Context:
+#  @s
+#
+################################################
 ```
 
 ## Execute
@@ -232,10 +281,10 @@ If just gives you an execute wrapper with if and else statements. The conditions
 ```dart
 If(
 	Condition(Entity.Player()),
-	Then: [
+	then: [
 		Log("true")
 	],
-	Else: [
+	orElse: [
 		Log("false")
 	]
 )
@@ -248,7 +297,7 @@ You can also negate the Condition with `If.not`:
 ```dart
 If.not(
 	Condition(Entity.Player()),
-	Then: [
+	then: [
 		Log("true")
 	]
 )
@@ -282,14 +331,14 @@ If(
 	Condition(
 		Entity.Selected()
 	)
-	,Then:[Log('entity')],
+	,then:[Log('entity')],
 )
 ⇒ execute if entity @s run say entity
 If(
 	Condition(
 		Location.here()
 	),
-	Then:[Say('block')],
+	then:[Say('block')],
 )
 ⇒ execute unless block ~ ~ ~ minecraft:air run say block
 If.not(
@@ -299,7 +348,7 @@ If.not(
 			"objective"
 		).matches(10)
 	),
-	Then:[Say('score')],
+	then:[Say('score')],
 )
 ⇒ execute unless score Stevertus objective matches 10 run say score
 ```
@@ -316,9 +365,9 @@ For Score, Block and Entity there is also a named constructor along with:
 If(
 	Condition.block(
 		Location.here(),
-		block: Block.stone
+		block: Blocks.stone
 	),
-	Then:[Say('stone')],
+	then:[Say('stone')],
 )
 ⇒ execute if block ~ ~ ~ minecraft:stone run say stone
 ```
@@ -327,9 +376,9 @@ If(
 ```dart
 If(
 	Condition.predicate(
-		"example:new"
+		Predicate("example:new")
 	),
-	Then:[Say('predicate true')],
+	then:[Say('predicate true')],
 )
 ⇒ execute if predicate example:new run say predicate true
 ```
@@ -345,7 +394,7 @@ If(
 		Entity(),
 		Condition(...)
 	]),
-	Then:[Say('true')],
+	then:[Say('true')],
 )
 ⇒ execute unless block ~ ~ ~ minecraft:air if entity @e if ... run say true
 ```
@@ -357,7 +406,7 @@ If(
 		Entity(),
 		Condition(...)
 	]),
-	Then:[Say('true')],
+	then:[Say('true')],
 )
 ⇒ execute unless block ~ ~ ~ minecraft:air run tag @p add objd_isTrue1
 ⇒ execute if entity @e run tag @p add objd_isTrue1
@@ -386,7 +435,7 @@ If.not(
 			),
 		]),
 	]),
-	Then: [Say("I'm done")]
+	then: [Say("I'm done")]
 )
 ⇒ 
 execute if entity @p unless entity @r run tag @p add objd_isTrue1
@@ -487,7 +536,7 @@ The SetBlock Command Class sets a Block at the specified location:
 Example:
 ```dart
 SetBlock(
-	Block.stone,
+	Blocks.stone,
 	location: Location.glob(
 		x: 5,
 		y: 0,
@@ -509,7 +558,7 @@ Fill acts similar to setblock, but fills a whole area instead.
 **Example:**
 ```dart
 Fill(
-	Block.dirt,
+	Blocks.dirt,
 	area: Area.fromLocations(
 		Location.glob(x: 0, y: 0, z: 0),
 		Location.glob(x: 10, y: 20, z: 10)
@@ -527,12 +576,12 @@ You can also just replace specific other blocks:
 **Example:**
 ```dart
 Fill.replace(
-	Block.dirt,
+	Blocks.dirt,
 	area: Area.fromLocations(
 		Location.glob(x: 0, y: 0, z: 0),
 		Location.glob(x: 10, y: 20, z: 10)
 	),
-	replace: Block.stone,
+	replace: Blocks.stone,
 )
 ⇒ fill 0 0 0 10 20 10 minecraft:dirt replace minecraft:stone
 ```
@@ -568,7 +617,7 @@ The same goes with `Clone.filtered` but it also accepts a property called block 
 Clone.filtered(
 	Area(x1:0,y1:0,z1:0,x2:10,y2:10,z2:10),
 	to: Location.here(),
-	block: Block.air,
+	block: Blocks.air,
 	mode: "move"
 )
 ⇒ clone 0 0 0 10 10 10 ~ ~ ~ filtered minecraft:air move
@@ -608,7 +657,7 @@ Gives a item to a player.
 ```dart
 Give(Entity.Player(),
 	item: Item(
-		ItemType.apple,
+		Items.apple,
 		count: 5
 	)
 )
@@ -631,7 +680,7 @@ Sets a specific container slot to a item.
 ReplaceItem(Entity.Player(),
 	slot: Slot.Hotbar5,
 	item: Item(
-		ItemType.apple,
+		Items.apple,
 		count: 5,
 		model: 339001
 	)
@@ -657,7 +706,7 @@ The particle command spawns particles in the world to enhance certain graphics.
 
 |constructor| |
 |--|--|
-|ParticleType| the type of the particle( ParticleType.[particle_id] ) |
+|ParticleType| the type of the particle( Particles.[particle_id] ) |
 |location| where to show the particle(required) |
 | delta | the directions in which the particle expands(Location.glob, optional) |
 | speed | the speed of the expanding particle(optional, but delta required) |
@@ -667,12 +716,12 @@ The particle command spawns particles in the world to enhance certain graphics.
 **Example:**
 ```dart
 Particle(
-	ParticleType.flame,
+	Particles.flame,
 	location: Location.here(),
 )
 ⇒ particle minecraft:flame ~ ~ ~
 Particle(
-	ParticleType.end_rod,
+	Particles.end_rod,
 	location: Location.here(),
 	delta: Location.glob(x: 1,y:4,z:0),
 	speed: 2
@@ -690,7 +739,7 @@ For the Block and Item particle(shows item or block break) there is a named cons
 
 **Example:**
 ```dart
-Particle.block(Block.sandstone,location:Location.here())
+Particle.block(Blocks.sandstone,location:Location.here())
 ⇒ particle minecraft:block sandstone ~ ~ ~
 ```
 
@@ -724,7 +773,7 @@ The summon class creates a new entity at a given location.
 **Example:**
 ```dart
 Summon(
-	EntityType.armor_stand,
+	Entities.armor_stand,
 	location: Location.rel(x: 0,y:1,z:0),
 	name: TextComponent("this is my name",color: Color.DarkBlue),
 	invulnerable:true,
@@ -736,6 +785,27 @@ Summon(
 	nbt: {"Invisible":1},
 )
 ⇒ summon armor_stand ~  ~1  ~  {"Invisible":1,"CustomName":"{\"text\":\"this is my name\",\"color\":\"dark_blue\"}","Invulnerable":1,"Small":1,"NoGravity":1,"ActiveEffects":[{"Id":24,"Amplifier":0,"Duration":200,"ShowParticles":0}],"Fire":100,"Rotation":[10.0,100.0]}
+```
+
+### Item.SpawnEgg
+
+Gives you an Item object that can hold summon data for a spawnegg.
+
+|Item.SpawnEgg| |
+|--|--|
+|ItemType|the type of spawnegg|
+|Summon| a summon widget that tells it what entity to create by clicking |
+|...|all other arguments of the item also apply|
+
+**Example:**
+```dart
+Item.SpawnEgg(
+	Items.pig_spawn_egg,
+	Summon(
+		Entities.cow,
+	),
+)
+⇒ {"id": "minecraft:pig_spawn_egg", "tag": {"EntityTag": {"id": "minecraft:cow"}}}
 ```
 
 ## Schedule
@@ -773,6 +843,17 @@ Schedule.append(
 	ticks:20,
 )
 ⇒ schedule function example:timer 20t append
+```
+
+### Schedule.clear
+Clears all schedules for a function.
+
+**Example:**
+```dart
+Schedule.clear(
+	"timer",
+)
+⇒ schedule clear example:timer
 ```
 
 ## Teleport/Tp
@@ -896,7 +977,7 @@ The Clear Widget removes Items from the inventory of an specified Entity.
 
 **Example:**
 ```dart
-Clear(Entity.All(),Item(ItemType.apple,Count:10))
+Clear(Entity.All(),Item(Items.apple,Count:10))
 ⇒ clear @a minecraft:apple 10
 ```
 ## Kill
@@ -906,4 +987,22 @@ Kills an Entity. It defaults to Entity.Self.
 ```dart
 Kill(Entity.All())
 ⇒ kill @a
+```
+
+## Spectate
+Puts a spectator(@s) into an entity.
+
+**Example:**
+```dart
+Spectate(Entity(limit:1).sort(Sort.nearest))
+⇒ spectate @e[limit=1,sort=nearest]
+```
+
+## SetGamemode
+Sets a players gamemode(either Gamemode.creative, Gamemode.adventure, Gamemode.survival or Gamemode.spectator) to an optional target.
+
+**Example:**
+```dart
+SetGamemode(Gamemode.adventure,target: Entity.All())
+⇒ gamemode creative @a
 ```

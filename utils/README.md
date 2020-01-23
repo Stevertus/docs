@@ -150,7 +150,7 @@ Location.here(),
 name:  TextComponent("Test", color:  Color.DarkPurple),
 nameVisible:  true,
 marker:  true,
-mainHand:  Item(ItemType.clock),
+mainHand:  Item(Items.clock),
 )
 ⇒ summon armor_stand ~  ~  ~  {"Marker":1,"HandItems":[{"id":"minecraft:clock"},{}],"CustomName":"{\"text\":\"Test\",\"color\":\"dark_purple\"}","CustomNameVisible":1}
 ```
@@ -361,6 +361,7 @@ All the constructors also exist as Methods and like the Score you can modify the
 * modify
 * copyData
 * copyScore
+* toData (Gives you the corresponding Data Widget)
 
 Check the arguments in your IDE to get more insight into these.
 
@@ -395,7 +396,7 @@ Often times you need to check blocks or entities around one Location. AroundLoca
 AroundLocation(
 	1,
 	build: (Location loc){
-		return Setblock(Block.stone,location:loc)
+		return Setblock(Blocks.stone,location:loc)
 	}
 )
 ⇒ setblock ~1 ~ ~ stone
@@ -427,7 +428,7 @@ There are a lot of values to play around, but this here would make a fully funct
 Raycast(
 	Entity.All(),
 	onhit: [
-		SetBlock(Block.sandstone,location:Location.here())
+		SetBlock(Blocks.sandstone,location:Location.here())
 	]
 )
 ⇒ execute as @a at @s anchored eyes positioned ^  ^  ^ anchored feet run function mypack:objd/ray1
@@ -452,10 +453,10 @@ In Dart this is done with a Function:
 Raycast(
 	Entity.All(),
 	onhit: [
-		SetBlock(Block.sandstone,location:Location.here())
+		SetBlock(Blocks.sandstone,location:Location.here())
 	],
 	ray: (stop, hit){
-		return If(...,Then:[stop()]); 
+		return If(...,then:[stop()]); 
 		// stop and hit are functions as well 
 		//that can be executed to perform actions
 	}
@@ -466,9 +467,9 @@ Let's also change other inputs:
 Raycast(
 	Entity.All(),
 	onhit: [
-		SetBlock(Block.sandstone,location:Location.here())
+		SetBlock(Blocks.sandstone,location:Location.here())
 	],
-	ray: (stop, hit) => If(...,Then:[stop()]),
+	ray: (stop, hit) => If(...,then:[stop()]),
 	max: 10, // set maximum distance to 10 blocks
 	step: 0.1,
 	through: Block("#minecraft:transparent"),
@@ -529,12 +530,14 @@ Therefore a file is called recursively and a counter score is increased.
 |then| A Function that takes in the count Score |
 |from| the initial value for the counter(default = 0) |
 |counter| an Entity to hold the count value(default = #objd_foreach) |
+|translate| a relative Location applied each step |
 |step| how much to increase or decrease the counter each time(default = 1) |
 
 **Example:**
 ```dart
 ForEach(
-	Score(Entity.All(), "myscore"), 
+	Score(Entity.All(), "myscore"),
+	translate: Location.rel(x:1), 
 	then: (score) {
 		return  Log(score);
 	}
@@ -546,7 +549,7 @@ ForEach(
 # objd/foreach2 file
 tellraw  @a  [{"text":"Console > ","color":"dark_aqua"},{"score":{"name":"#objd_foreach","objective":"objd_count"}}]
 scoreboard players add #objd_foreach objd_count 1
-execute if score #objd_foreach objd_count <= @a myscore run function  mypack:objd/foreach2
+execute if score #objd_foreach objd_count <= @a myscore positioned ~1 ~ ~ run function  mypack:objd/foreach2
 ```
 ## Builder
 
@@ -589,6 +592,32 @@ ItemBuilder<String>(
 ==> For.of([Log("hello"),Log("world")])
 ```
 
+## PassTrait
+The PassTrait Functionality allows you to pass data down your widget tree without struggles. Imagine having one unique value in your pack that special widgets below it regarless of their position or parent should know of.
+The PassTrait Widget injects your value in the Context, allowing you to access it everywhere. 
+
+| constructor |  |
+|--|--|
+|any| a value that you would like to pass down |
+|child| The underlying widget tree(required) |
+
+```dart
+PassTrait(
+	10.0,
+	child: ...
+)
+```
+
+In some other Widgets generate function you can retrieve the value by using PassTrait.of now. The values are passed by type, so you can just get one value per type(of course custom classes are also valid):
+
+```dart
+  @override
+  Widget generate(Context context) {
+    var value = PassTrait.of<double>(context); // => 10.0
+    return ...;
+  }
+```
+
 ## StraitWidget
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/HD50K0DkEuI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -623,3 +652,46 @@ StraitWidget(
 )
 ==> kill @s
 ```
+
+## VersionCheck
+Checks whether the player updated or downdated your datapack.
+
+| constructor |  |
+|--|--|
+|int| the datapacks current version |
+|onDowndate| a List of Widgets that are executed if it detects that you have downgraded |
+|onUpdate| a List of Widgets that are executed if it detects that you have upgraded |
+|then| a Function that takes in the used Score and reacts respectivly returning a Widget(optional) |
+|score| change the scores name(optional) |
+
+**Example:**
+
+```dart
+VersionCheck(
+	2,
+	onDowndate: [Log('Notice: You installed an older version')],
+	onUpdate: [Log('Thank your for updating the pack!')],
+)
+```
+
+## ServerVersionCheck
+Checks the used Minecraft Version and can give feedback on it(e.g. Errors).
+
+| constructor |  |
+|--|--|
+|minVersion| the aimed version number as int(1.15 = `15`) |
+|versionTooLow| a List of Widgets that are executed if it detects that the version is lower that minVersion |
+|then| a Function that takes in the used Score and reacts respectivly returning a Widget(optional) |
+|serverVersion| change the scores name(optional) |
+
+**Example:**
+
+```dart
+ServerVersionCheck(
+	minVersion: 14,
+	versionTooLow: [Log('Please use at least Minecraft Version 1.14')],
+	then: (Score s) => ...
+)
+```
+
+This methods summons an entity and puts some exclusive items in their hands to detect the version.

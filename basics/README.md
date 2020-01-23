@@ -506,7 +506,7 @@ Range.exact(4)
 |--|--|
 |String|String representation of the type|
 
-There is also an EntityType for every type_id in minecraft with `EntityType.[type_id]`
+There is also an EntityType for every type_id in minecraft with `Entities.[type_id]`
 
 ```dart
 Say(
@@ -516,7 +516,7 @@ Say(
 		tags:["first","second"],
 		scores:[Score(score1).matches(10)],
 		team: Team("my_team"),
-		type: EntityType.armor_stand,
+		type: Entities.armor_stand,
 		distance: Range(to:2),
 		area: Area.fromLocations(
 			// use null for a unlimited selection
@@ -557,7 +557,7 @@ Creates a new Entity based on the existing one and applies new arguments. (same 
 
 **Example:**
 ```dart
-Entity ent1 = Entity(type:EntityType.sheep)
+Entity ent1 = Entity(type:Entities.sheep)
 Entity ent2 = ent1.copyWith(distance:Range(to:1))
 ``` 
 
@@ -566,7 +566,7 @@ Modifies the properties of the existing Entity and applies new arguments(same as
 
 **Example:**
 ```dart
-Entity ent1 = Entity(type:EntityType.sheep)
+Entity ent1 = Entity(type:Entities.sheep)
 ent1.setValues(distance:Range(to:1))
 ⇒ @e[type=sheep,distance=..1] 
 ``` 
@@ -637,12 +637,21 @@ Checks if the Tag is a certain value and returns a Condition to use in If.
 
 ```dart
 	If(
-		Tag("test") ? true,
-		Then: [
+		Tag("test") & true,
+		then: [
 			...
 		]
 	)
 	⇒ /execute if entity @s[tag=test] run ... 
+```
+
+### Prefixes
+
+Often you find yourself giving all tags a prefix espacially for your project. This can get very repetitive and anoying, so objD has this prefix built in.
+Just assign the wanted prefix to the Tag.prefix constant and most tags(initiated with Tag, Entity and Summon) will be converted:
+
+```dart
+Tag.prefix = "stevertus_"
 ```
 
 ## Scoreboard
@@ -685,6 +694,26 @@ With `Scoreboard.setdisplay` you can display the values:
 |String|name of the objective(required)|
 |display|String for display location (default = sidebar)|
 
+### Prefixes
+
+Often you find yourself giving all scoreboards a prefix espacially for your project. This can get very repetitive and anoying, so objD has this prefix built in.
+Just assign the wanted prefix to the Scoreboard.prefix constant and all your scores will be converted:
+
+```dart
+Scoreboard.prefix = "stevertus_"
+```
+
+### Accessing the Scores
+
+A Scoreboard implements the operator []. With this operator you can retrieve a score quickly from its scoreboard by passing either an Entity or a String representing a player name(or fake name):
+
+```dart
+var board = Scoreboard("test");
+...
+var score1 = board[Entity.Self()];
+var score2 = board["#some_constant"];
+```
+
 
 ## Score
 
@@ -721,6 +750,7 @@ These methods can be used to set or calculate the value:
 |modulo|Score|
 |setToData|Data|
 |setToResult|Command,useSuccess(bool)|
+|setToCondition|Condition,useSuccess(bool)|
 |findSmallest|List\<Score>,min (⇒ finds the smallest value in a list of scores)|
 |findBiggest|List\<Score>,max (⇒ finds the biggest value in a list of scores)|
 
@@ -775,7 +805,7 @@ Operators are a way to make the common used methods easier and more accessible. 
 
 |Operator|available Types | equivilant to |
 |--|--|
-|>>|int, Score| score.set(int) |
+|>>|int, Score, Data.get, Condition| score.set(int) |
 |+|int, Score| score.add(int) |
 |-|int, Score| score.substract(int) |
 |%|int, Score| score.modulo(score2) |
@@ -919,7 +949,7 @@ There is also a util class called Block which provides a wrapper for all availab
 **Usage:**
 ```dart
 Block([minecraft_block_id]) // as string or
-Block.[minecraft_block_id]
+Blocks.[minecraft_block_id]
 ```
 All ids can be found [here](https://minecraft.gamepedia.com/Block#List_of_blocks).
 But you can also insert a block by its string:
@@ -932,7 +962,7 @@ But you can also insert a block by its string:
 Example:
 ```dart
 SetBlock(
-	Block.stone,
+	Blocks.stone,
 	location: Location.here()
 )
 ```
@@ -957,7 +987,7 @@ In the block example we already used a class called Location. This translates in
 |String|the minecraft coordinate string(e.g "~ ~ ~")|
 
 ```dart
-SetBlock(Block.stone,location: Location("~ 5 ~"))
+SetBlock(Blocks.stone,location: Location("~ 5 ~"))
 ```
 There is also a shortcut for " ~ ~ ~ ":
 
@@ -1282,24 +1312,23 @@ Also take a look at the objD [Storage API](/utils#storage) for easier accessibil
 
 The Item class represents an item in an inventory in Minecraft. It is used in the [Give]() or Nbt Commands.
 
-> This Class is incomplete, more functionality soon...
-
 |constructor | |
 |--|--|
 |ItemType \| Block \| String|the type of item(required, see example)|
 |count|Integer value for the amount of stacked items|
-|name|a TextComponent showing a name|
-|lore| a  List of TextComponents giving extra information|
 |slot|The current Slot of the item(does not work for give)|
 |damage|the used durability of the item|
+|hideFlags|int from 1 to 63 describing which information to hide|
 |model|int describing which model varient should be used|
+|name|a TextComponent showing a name|
+|lore| a  List of TextComponents giving extra information|
 |nbt|addional NBT as Dart Map|
 
 **Example:**
 ```dart
 Give(Entity.Selected(),
 	item: Item(
-		ItemType.iron_axe, // OR Block.stone OR "whatever id"
+		Items.iron_axe, // OR Blocks.stone OR "whatever id"
 		count: 5,
 		name: TextComponent("My Item",color:Color.Black),
 		lore: [
@@ -1324,8 +1353,27 @@ ItemType is like EntityType or Block a utility class to provide a list of all av
 
 |ItemType([minecraft_item_id])| creates a ItemType from a String |
 |--|--|
-|ItemType.[minecraft_item_id]|there is also an value for each item in Minecraft|
+|Items.[minecraft_item_id]|there is also an value for each item in Minecraft|
 
+### HideFlags
+To help you with the hideFlags value, there is the HideFlags method. It translates the human readable boolean values into an int.
+
+|HideFlags|bools|
+|--|--|
+|enchant|whether to show the enchantments|
+|attributes|whether to show the attributes|
+|unbreakable|whether to show the unbreakable tag|
+|canDestroy|whether to show the canDestroy tag|
+|canPlaceOn|whether to show the canPlaceOn tag|
+|others|whether to show other nbt information|
+
+**Example:**
+
+```dart
+var flags = HideFlags(attributes:true, unbreakable: true, others: true); // = 38
+...
+Item(Items.apple,hideFlags: flags)
+```
 
 ## Slot
 The Slot object gives you certain utils to manipulate Inventories and Containers with the Item, Replaceitem or Data.
@@ -1355,7 +1403,7 @@ More important are all the constants:
 ```dart
 ReplaceItem(
 	Entity.All(),
-	item:Item(ItemType.golden_helmet),
+	item:Item(Items.golden_helmet),
 	slot:Slot.Head
 )
 ⇒ replaceitem entity @a armor.head minecraft:golden_helmet
@@ -1385,7 +1433,7 @@ takes in two numbers, like Slot.inv or one number from 1-9. The start options ma
 ```dart
 ReplaceItem.block(
 	Location.here(),
-	item:Item(ItemType.beef),
+	item:Item(Items.beef),
 	slot:Slot.chest(3,8)
 )
 ⇒ replaceitem block ~  ~  ~  container.25 minecraft:beef
