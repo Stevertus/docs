@@ -39,6 +39,10 @@ module.exports = {
       { text: "Modules", link: "/modules/" },
       { text: "CLI", link: "/cli/" },
     ],
+    algolia: {
+      apiKey: "e5a445386ffde17466c8fc95f42b0915",
+      indexName: "objd",
+    },
   },
   plugins: [
     "@vuepress/last-updated",
