@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Basics | ObjD</title>
-    <meta name="generator" content="VuePress 1.5.2">
+    <meta name="generator" content="VuePress 1.5.4">
     <link rel="icon" href="/logo.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
@@ -15,8 +15,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#1069b4">
-    <link rel="preload" href="/assets/css/0.styles.4e7a331c.css" as="style"><link rel="preload" href="/assets/js/app.5e592de7.js" as="script"><link rel="preload" href="/assets/js/3.08bce26b.js" as="script"><link rel="preload" href="/assets/js/7.4f2d4167.js" as="script"><link rel="prefetch" href="/assets/js/10.f1563eff.js"><link rel="prefetch" href="/assets/js/11.496bfa8e.js"><link rel="prefetch" href="/assets/js/12.233832cf.js"><link rel="prefetch" href="/assets/js/13.5ae0cc67.js"><link rel="prefetch" href="/assets/js/14.736804ca.js"><link rel="prefetch" href="/assets/js/4.c180e31c.js"><link rel="prefetch" href="/assets/js/5.b3fc7413.js"><link rel="prefetch" href="/assets/js/6.1dd52ee4.js"><link rel="prefetch" href="/assets/js/8.3f0ec1d2.js"><link rel="prefetch" href="/assets/js/9.d60579bc.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.f5584d80.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.4e7a331c.css">
+    <link rel="preload" href="/assets/css/0.styles.0d11a0bf.css" as="style"><link rel="preload" href="/assets/js/app.1e2fe9c1.js" as="script"><link rel="preload" href="/assets/js/3.d9667fb1.js" as="script"><link rel="preload" href="/assets/js/7.64be6cef.js" as="script"><link rel="prefetch" href="/assets/js/10.03064d54.js"><link rel="prefetch" href="/assets/js/11.a8c13ab0.js"><link rel="prefetch" href="/assets/js/12.69e7f376.js"><link rel="prefetch" href="/assets/js/13.69d50747.js"><link rel="prefetch" href="/assets/js/14.b799703a.js"><link rel="prefetch" href="/assets/js/4.c180e31c.js"><link rel="prefetch" href="/assets/js/5.23d91074.js"><link rel="prefetch" href="/assets/js/6.5e950ddf.js"><link rel="prefetch" href="/assets/js/8.c6b51434.js"><link rel="prefetch" href="/assets/js/9.b8215289.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.f5584d80.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0d11a0bf.css">
   </head>
   <body>
     <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="ObjD" class="logo"> <span class="site-name can-hide">ObjD</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link">
@@ -65,11 +65,12 @@ We can use an Widget to get or build functionality. e.g</p> <div class="language
 		<span class="token keyword">return</span> <span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">'function '</span> <span class="token operator">+</span> context<span class="token punctuation">.</span>packId <span class="token operator">+</span> <span class="token string">&quot;:&quot;</span> <span class="token operator">+</span> context<span class="token punctuation">.</span>loadFile<span class="token punctuation">)</span>
 	<span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre></div><h2 id="project"><a href="#project" class="header-anchor">#</a> Project</h2> <p>The project is a special Widget which is just defined once. It contains some built options, like description or name, but also the entire underlying tree of packs, files and actions.</p> <table><thead><tr><th>constructor</th> <th></th></tr></thead> <tbody><tr><td>name</td> <td>the name of the datapack folder</td></tr> <tr><td>generate</td> <td>a widget that defines the projects content</td></tr> <tr><td>[description]</td> <td>A description that will go in pack.mcmeta</td></tr></tbody></table> <p><strong>Example:</strong></p> <div class="language-dart extra-class"><pre class="language-dart"><code><span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+</code></pre></div><h2 id="project"><a href="#project" class="header-anchor">#</a> Project</h2> <p>The project is a special Widget which is just defined once. It contains some built options, like description or name, but also the entire underlying tree of packs, files and actions.</p> <table><thead><tr><th>constructor</th> <th></th></tr></thead> <tbody><tr><td>name</td> <td>the name of the datapack folder</td></tr> <tr><td>generate</td> <td>a widget that defines the projects content</td></tr> <tr><td>[description]</td> <td>A description that will go in pack.mcmeta</td></tr> <tr><td>[version]</td> <td>The minimal supported Minecraft version as int (mc 1.16 -&gt; 16)</td></tr></tbody></table> <p><strong>Example:</strong></p> <div class="language-dart extra-class"><pre class="language-dart"><code><span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token comment">// create Project takes in one project and compiles it</span>
 <span class="token function">createProject</span><span class="token punctuation">(</span>
 	<span class="token function">Project</span><span class="token punctuation">(</span>
 		name<span class="token punctuation">:</span>  <span class="token string">&quot;tested&quot;</span><span class="token punctuation">,</span>
+		version<span class="token punctuation">:</span> <span class="token number">16</span><span class="token punctuation">,</span>
 		generate<span class="token punctuation">:</span>  <span class="token function">MainWidget</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 	<span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -518,6 +519,6 @@ takes in two numbers, like Slot.inv or one number from 1-9. The start options ma
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.5e592de7.js" defer></script><script src="/assets/js/3.08bce26b.js" defer></script><script src="/assets/js/7.4f2d4167.js" defer></script>
+    <script src="/assets/js/app.1e2fe9c1.js" defer></script><script src="/assets/js/3.d9667fb1.js" defer></script><script src="/assets/js/7.64be6cef.js" defer></script>
   </body>
 </html>

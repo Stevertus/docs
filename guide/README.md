@@ -74,7 +74,7 @@ void main(List<String> args){
 			target:"./", // path for where to generate the project
 			generate: CustomWidget() // The starting point of generation
 		),
-		args
+		args,
 	);
 }
 ```
@@ -100,8 +100,8 @@ Widget generate(Context context){
 		name:"mypack",
 		main: File( // optional
 			'main'
-		)
-	)
+		),
+	);
 }
 ```
 
@@ -125,7 +125,7 @@ But how to add a list of Actions then? Well there's also an Widget for that:
 ```dart
 child: For.of([
 	Log('Hello World'),
-	Command('setblock 0 0 0 air')
+	Command('setblock 0 0 0 air'),
 ])
 ```
 
@@ -158,7 +158,7 @@ class CustomWidget extends Widget {
 					Log('Hello World'),
 					Command('setblock 0 0 0 air')
 				])
-            )
+            ),
         );
     }
 }

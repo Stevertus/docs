@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Guide | ObjD</title>
-    <meta name="generator" content="VuePress 1.5.2">
+    <meta name="generator" content="VuePress 1.5.4">
     <link rel="icon" href="/logo.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
@@ -15,8 +15,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#1069b4">
-    <link rel="preload" href="/assets/css/0.styles.4e7a331c.css" as="style"><link rel="preload" href="/assets/js/app.5e592de7.js" as="script"><link rel="preload" href="/assets/js/3.08bce26b.js" as="script"><link rel="preload" href="/assets/js/10.f1563eff.js" as="script"><link rel="prefetch" href="/assets/js/11.496bfa8e.js"><link rel="prefetch" href="/assets/js/12.233832cf.js"><link rel="prefetch" href="/assets/js/13.5ae0cc67.js"><link rel="prefetch" href="/assets/js/14.736804ca.js"><link rel="prefetch" href="/assets/js/4.c180e31c.js"><link rel="prefetch" href="/assets/js/5.b3fc7413.js"><link rel="prefetch" href="/assets/js/6.1dd52ee4.js"><link rel="prefetch" href="/assets/js/7.4f2d4167.js"><link rel="prefetch" href="/assets/js/8.3f0ec1d2.js"><link rel="prefetch" href="/assets/js/9.d60579bc.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.f5584d80.js">
-    <link rel="stylesheet" href="/assets/css/0.styles.4e7a331c.css">
+    <link rel="preload" href="/assets/css/0.styles.0d11a0bf.css" as="style"><link rel="preload" href="/assets/js/app.1e2fe9c1.js" as="script"><link rel="preload" href="/assets/js/3.d9667fb1.js" as="script"><link rel="preload" href="/assets/js/10.03064d54.js" as="script"><link rel="prefetch" href="/assets/js/11.a8c13ab0.js"><link rel="prefetch" href="/assets/js/12.69e7f376.js"><link rel="prefetch" href="/assets/js/13.69d50747.js"><link rel="prefetch" href="/assets/js/14.b799703a.js"><link rel="prefetch" href="/assets/js/4.c180e31c.js"><link rel="prefetch" href="/assets/js/5.23d91074.js"><link rel="prefetch" href="/assets/js/6.5e950ddf.js"><link rel="prefetch" href="/assets/js/7.64be6cef.js"><link rel="prefetch" href="/assets/js/8.c6b51434.js"><link rel="prefetch" href="/assets/js/9.b8215289.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.f5584d80.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.0d11a0bf.css">
   </head>
   <body>
     <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="ObjD" class="logo"> <span class="site-name can-hide">ObjD</span></a> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
@@ -64,7 +64,7 @@ Let's get started and create our first dart file with `lib/main.dart` file.
 			target<span class="token punctuation">:</span><span class="token string">&quot;./&quot;</span><span class="token punctuation">,</span> <span class="token comment">// path for where to generate the project</span>
 			generate<span class="token punctuation">:</span> <span class="token function">CustomWidget</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// The starting point of generation</span>
 		<span class="token punctuation">)</span><span class="token punctuation">,</span>
-		args
+		args<span class="token punctuation">,</span>
 	<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre></div><p>Next of we need to build this custom Widget:</p> <div class="language-dart extra-class"><pre class="language-dart"><code><span class="token keyword">class</span> <span class="token class-name">CustomWidget</span> <span class="token keyword">extends</span> <span class="token class-name">Widget</span> <span class="token punctuation">{</span>
@@ -78,8 +78,8 @@ Let's get started and create our first dart file with `lib/main.dart` file.
 		name<span class="token punctuation">:</span><span class="token string">&quot;mypack&quot;</span><span class="token punctuation">,</span>
 		main<span class="token punctuation">:</span> <span class="token function">File</span><span class="token punctuation">(</span> <span class="token comment">// optional</span>
 			<span class="token string">'main'</span>
-		<span class="token punctuation">)</span>
-	<span class="token punctuation">)</span>
+		<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre></div><p>What we are doing right now is to generate a new subpack with a name(This will be the namespace of your functions later) and a main file(runs every tick) with the name &quot;main.mcfunction&quot;.</p> <p>You can run the project already and the result should be a pack with an empty main.mcfunction file.</p> <p>So lets add some functionality to our project in our main file.
 We can use the Log Widget to display a message to the player.</p> <div class="language-dart extra-class"><pre class="language-dart"><code>main<span class="token punctuation">:</span> <span class="token function">File</span><span class="token punctuation">(</span>
@@ -89,7 +89,7 @@ We can use the Log Widget to display a message to the player.</p> <div class="la
 </code></pre></div><p>But how to add a list of Actions then? Well there's also an Widget for that:
 <code>For.of</code></p> <div class="language-dart extra-class"><pre class="language-dart"><code>child<span class="token punctuation">:</span> For<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
 	<span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-	<span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">'setblock 0 0 0 air'</span><span class="token punctuation">)</span>
+	<span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">'setblock 0 0 0 air'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">]</span><span class="token punctuation">)</span>
 </code></pre></div><p>So now we have a <a href="https://www.dartlang.org/guides/language/language-tour#lists" target="_blank" rel="noopener noreferrer">List<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> of Widget, so we can use as many as we want</p> <p>Whole code:</p> <div class="language-dart extra-class"><pre class="language-dart"><code><span class="token keyword">import</span> <span class="token string">'package:objd/core.dart'</span><span class="token punctuation">;</span>
 
@@ -115,7 +115,7 @@ We can use the Log Widget to display a message to the player.</p> <div class="la
 					<span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 					<span class="token function">Command</span><span class="token punctuation">(</span><span class="token string">'setblock 0 0 0 air'</span><span class="token punctuation">)</span>
 				<span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -124,6 +124,6 @@ We can use the Log Widget to display a message to the player.</p> <div class="la
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.5e592de7.js" defer></script><script src="/assets/js/3.08bce26b.js" defer></script><script src="/assets/js/10.f1563eff.js" defer></script>
+    <script src="/assets/js/app.1e2fe9c1.js" defer></script><script src="/assets/js/3.d9667fb1.js" defer></script><script src="/assets/js/10.03064d54.js" defer></script>
   </body>
 </html>

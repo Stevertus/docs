@@ -65,11 +65,12 @@ class LoadWidget extends Widget {
 
 The project is a special Widget which is just defined once. It contains some built options, like description or name, but also the entire underlying tree of packs, files and actions.
 
-| constructor   |                                            |
-| ------------- | ------------------------------------------ |
-| name          | the name of the datapack folder            |
-| generate      | a widget that defines the projects content |
-| [description] | A description that will go in pack.mcmeta  |
+| constructor   |                                                                |
+| ------------- | -------------------------------------------------------------- |
+| name          | the name of the datapack folder                                |
+| generate      | a widget that defines the projects content                     |
+| [description] | A description that will go in pack.mcmeta                      |
+| [version]     | The minimal supported Minecraft version as int (mc 1.16 -> 16) |
 
 **Example:**
 
@@ -79,6 +80,7 @@ main() {
 createProject(
 	Project(
 		name:  "tested",
+		version: 16,
 		generate:  MainWidget(),
 	)
 );

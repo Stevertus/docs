@@ -33,7 +33,7 @@ void main() {
           load: File(
               "load",
               child: Log("Reloaded!")
-          )
+          ),
       ),
     )
   );
@@ -89,7 +89,7 @@ void main() {
                       )
                       Score("counter",Entity.All()).reset(),
                   ]
-              )
+              ),
           ),
       ),
     )
@@ -112,42 +112,17 @@ Or
 
 ## Changelog of all the recent additions
 
-### 0.3.3
+### 0.3.4
 
-**BREAKING**
-
-- added Item.type replacing ItemType and made it unmutable
-- divided Blocks.all and Items.all in 1.15 items and newer [snapshot] items
-- removed named parameters for Range. If you want to set a upper or lower limit use Range.to or Range.from now on.
-- changed Comment.Seperate to Comment.Separate
-- changed Advancement cricterium to cricteria in Advancement.grant() parameters
-
-**Widgets**
-
-- added PlayerJoin Widget
-- added Enchant Widget
-- added experimental CustomBlock Widget
-- added Spawnpoint Widget
-- added Attribute Widget
-
-**Fixes**
-
-- added new 1.16 blocks, items, particles and entities
-- added Attribute Type and an Attribute List to support Minecraft attributes
-- added useTag argument in the If Widget to allow custom tags marking the else statement
-- added Item.copyWith() to clone Items more easily
-- added Color.fromInt and Color.fromRGB to support new color spaces
-- added an optional bool property to Slot.chest to support Enderchests
-- fixed Data.modify rejecting a List as value
-- fixed missing increment for Ifs objd_is_true tag
-- fixed if an else option is provided for If, encapsulate would not have an effect
-- fixed crash when leaving the generate parameter of Project empty
-- fixed bug with Trigger.enable
-- fixed Do Widget to also execept null as translate parameter
-- fixed errors when trying to use gson component in a give command
-- fixed that Entity.not used to reset all previous applied tags
-- removed all deprecated and unessary parts
-
-Thanks to kadmuffin for contributing and fixing typos!
+- added the ability to change the minecraft version by adding Project.version(changes mcmeta pack_format)
+- added spawnegg check for CustomBlock
+- added CustomBlock onPlaced and onBreak
+- added a way to override TextComponents with null -> TextComponent(null)
+- fixed issues with copying dicts
+- fixed missing toString method for Item
+- fixed missing implementation for Item.copyWith with model, name, hideFlags, lore and nbt
+- fixed that fromJson and clone were not static
+- fixed Execute.center targeting the corner of the block
+- removed unnecessary collection package
 
 <div class="hero" style="padding:16px"><a class="nav-link action-button" href="/changes">Full Changelog</a></div>

@@ -110,7 +110,7 @@ This Module allows you to create infinite new blocks in the game. It works by pr
 | onBreak      | Widget that gets executed when the block is broken                                   |
 | tag          | List of Strings of Tags to apply to the block entity                                 |
 | generatePack | whether to generate the custom block as pack(default = true)                         |
-| useItemFrame | display the block in an invisible Item Frame(default = true)                         |
+| useItemFrame | display the block in an invisible Item Frame(default = false)                        |
 | fire         | set the entity on fire to hide graying out when using a solid block(default = false) |
 
 You can use `getItem()` on your created block to get the spawnegg with all the required nbt data. This can be used further.
@@ -131,7 +131,7 @@ CustomBlock(
 		name: TextComponent('Creative Block'),
 	),
 	block: Blocks.stone,
-	useItemFrame: false,
+	useItemFrame: true,
 	generatePack: false,
 )
 ```
