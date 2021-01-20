@@ -1,6 +1,6 @@
 ---
 sidebar: auto
-footer: MIT Licensed | Copyright © 2020 Stevertus
+footer: MIT Licensed | Copyright © 2021 Stevertus
 prev: /basics/
 next: /texts/
 ---
@@ -705,11 +705,11 @@ Give(Entity.Player(),
 ⇒ give @s minecraft:apple 5
 ```
 
-## ReplaceItem
+## ReplaceItem/Item
 
-Sets a specific container slot to a item.
+Changes Item data of a specific container slot. Depending on the project version this uses replaceitem or the item command.
 
-- for Entities:
+for Entities:
 
 | constructor |                                           |
 | ----------- | ----------------------------------------- |
@@ -725,11 +725,11 @@ ReplaceItem(Entity.Player(),
 	item: Item(
 		Items.apple,
 		count: 5,
-		model: 339001
-	)
+		model: 339001,
+	),
 )
 
-⇒ replaceitem entity @p hotbar.5 minecraft:apple{"CustomModelData":339001} 5
+⇒ item entity @p hotbar.5 replace minecraft:apple{CustomModelData:339001} 5
 ```
 
 This works the same with ReplaceItem.block:
@@ -740,8 +740,32 @@ This works the same with ReplaceItem.block:
 | item              | the Item you want to set(required)        |
 | slot              | a Slot Object with the slot set(required) |
 
-video
-q8cI-Irpv9Q
+To copy an Item from one slot to another use `ReplaceItem.copy`:
+
+| ReplaceItem.copy   |                                                   |
+| ------------------ | ------------------------------------------------- |
+| Location or Entity | the target container to copy to                   |
+| slot               | the slot to copy to(required)                     |
+| from               | another Location or Entity to copy from(required) |
+| fromSlot           | the slot to copy from(required)                   |
+| modifier           | an item modifier path                             |
+
+**Example:**
+
+```dart
+ReplaceItem.copy(
+	Entity.Player(),
+	slot: Slot.Hotbar5,
+	from: Location.here(),
+	fromSlot: Slot.Container1,
+)
+
+⇒ item entity @p hotbar.5 copy block ~ ~ ~ container.1
+```
+
+ReplaceItem.modify takes a modifier path and applies it to an slot.
+
+To clear a specific slot you can use ReplaceItem.clear
 
 ## Particle
 
@@ -779,16 +803,34 @@ Particle(
 
 For the Block and Item particle(shows item or block break) there is a named constructor:
 
-| Particle.block or Particle.item |                                    |
-| ------------------------------- | ---------------------------------- |
-| Item or Block                   | the block or item you want to show |
-| ...                             | same as Particle                   |
+| Particle.block or Particle.item |                                                                            |
+| ------------------------------- | -------------------------------------------------------------------------- |
+| Item or Block                   | the block or item you want to show                                         |
+| falling                         | wheither to display the falling version of a block particle(default=false) |
+| ...                             | same as Particle                                                           |
 
 **Example:**
 
 ```dart
 Particle.block(Blocks.sandstone,location:Location.here())
 ⇒ particle minecraft:block sandstone ~ ~ ~
+```
+
+Particle.dust gives an interface to generate dust particles with some color and size:
+
+| Particle.dust |                              |
+| ------------- | ---------------------------- |
+| r             | red value(0.0 to 1.0)        |
+| g             | green value(0.0 to 1.0)      |
+| b             | blue value(0.0 to 1.0)       |
+| size          | size of the dust(0.0 to 4.0) |
+| ...           | same as Particle             |
+
+**Example:**
+
+```dart
+Particle.dust(0,0.5,1.0, size: 1.0)
+⇒ particle minecraft:dust 0 0.5 1.0 1.0 ~ ~ ~
 ```
 
 ## Summon

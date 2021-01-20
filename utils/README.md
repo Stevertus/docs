@@ -1,6 +1,6 @@
 ---
 sidebar: auto
-footer: MIT Licensed | Copyright © 2020 Stevertus
+footer: MIT Licensed | Copyright © 2021 Stevertus
 prev: /texts/
 next: /modules/
 ---
@@ -797,4 +797,102 @@ PlayerJoin.initial(
 => scoreboard players add #current objd_join 1
 => tellraw @a [{"text":"Console > ","color":"dark_aqua"},{"score":{"name":"#current","objective":"objd_join"}}]
 => scoreboard players operation @s objd_join = #current objd_join
+```
+
+## Recipe
+
+A Widget used to generate minecrafts json recipes as well as objDs custom recipes. A basic recipe takes in ingredient Items with the slot and a result Item.
+
+| Recipe         |                                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| Map<slot,Item> | The ingredients as a Map with the Slot(1 to 9) on the one side and your Item on the other |
+| Item           | your result Item                                                                          |
+| name           | name of your recipe file(default = recipe)                                                |
+| id             | overrides the automatically generated id(optional)                                        |
+| exactlyPlaced  | bool that requires to leave all unused slots empty(default = false)                       |
+| exactResult    | a number that limits the result count(optional)                                           |
+
+**Example:**
+
+```dart
+Recipe(
+    {
+        1: Item(Blocks.oak_planks),
+    	2: Item(Blocks.oak_planks),
+        4: Item(Blocks.oak_planks),
+        5: Item(Blocks.oak_planks),
+    },
+    Item(Blocks.crafting_table,Count:2,nbt:{'MyNBT':1})
+ )
+```
+
+### Recipe.pattern
+
+Want to stay close to the original minecraft notation and want to prove a pattern? You can also do that with:
+
+| Recipe.pattern    |                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+| List\<String>     | Each String of Length 3 represents one row in the crafting grid, use the same char for same items |
+| Map\<String,Item> | For each used character in the pattern, define a corresponding item                               |
+| ...               | stays the same                                                                                    |
+
+**Example:**
+
+```dart
+Recipe(
+	[
+		'##',
+		'##'
+	],
+	{'#': Item(Blocks.oak_planks)},
+    Item(Blocks.crafting_table,Count:2,nbt:{'MyNBT':1})
+ )
+```
+
+The API also supports shapeless crafting. That means you can set the ingredients in any shape and it would be the same result.
+
+| Recipe.shapeless |                                             |
+| ---------------- | ------------------------------------------- |
+| List\<Item>      | The ingredients in any shape(without slots) |
+| ...              | stays the same                              |
+
+**Example:**
+
+```dart
+Recipe.shapeless(
+    [
+       Item(Blocks.oak_planks),
+       Item(Items.diamond)
+    ],
+    Item(Items.diamond_sword)
+ )
+```
+
+### Recipe.smelting
+
+Since smelting requires just one ingredient, just give it an Item and its result. Futhermore you can change the cooktime and experience gained:
+
+| Recipe.smelting |                                                                               |
+| --------------- | ----------------------------------------------------------------------------- |
+| Item            | The ingredient (without slot)                                                 |
+| cooktime        | The cook time of the recipe in ticks(default = 200)                           |
+| experience      | output experience as double(default = 0.1)                                    |
+| type            | Can be changed to RecipeType.blasting, smoking or campfire_cooking (optional) |
+| ...             | stays the same                                                                |
+
+### Recipe.smithing
+
+For smithing you can define an additional item on top to the base item:
+
+| Recipe.smithing |                 |
+| --------------- | --------------- |
+| Item            | The ingredient  |
+| Item            | result Item     |
+| addition        | additional Item |
+| ...             | stays the same  |
+
+In case you need to, you can also serialize a recipe to and from json(represented as Map):
+
+```dart
+Recipe.fromJson(r.toJson());
 ```

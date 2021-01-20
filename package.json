@@ -7,5 +7,8 @@
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.0.4",
     "vuepress": "^1.0.4"
+  },
+  "dependencies": {
+    "@vuepress/core": "^1.8.0"
   }
 }

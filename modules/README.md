@@ -1,6 +1,6 @@
 ---
 sidebar: auto
-footer: MIT Licensed | Copyright © 2020 Stevertus
+footer: MIT Licensed | Copyright © 2021 Stevertus
 prev: /utils/
 next: /cli/
 ---

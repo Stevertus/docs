@@ -1,6 +1,6 @@
 ---
 sidebar: auto
-footer: MIT Licensed | Copyright © 2020 Stevertus
+footer: MIT Licensed | Copyright © 2021 Stevertus
 prev: false
 next: /basics/
 ---
@@ -38,7 +38,7 @@ Open the pubspec.yaml file and add
 ```yaml
 name: [unique_namespace]
 dependencies:
-  objd: ^0.3.3
+  objd: ^0.3.5
 ```
 
 Also remember to replace the `[unique_namespace]` with your own project name.
