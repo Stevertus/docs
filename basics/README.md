@@ -204,6 +204,27 @@ RawFile(
 )
 ```
 
+## JsonFile
+
+As a way to easily generate .json files, you can use the JsonFile wrapper. Just provide a map or a list and a path
+
+| constructor |                                           |
+| ----------- | ----------------------------------------- |
+| String      | path of the file(without .json extension) |
+| Map         | the content of the file                   |
+| useGson     | whether to generate gson or plain json    |
+
+For a List just use `JsonFile.list`.
+
+**Example:**
+
+```dart
+JsonFile(
+	"predicates/map",
+	{},
+)
+```
+
 ## Extend
 
 Extend is very similar to File, but instead of creating a new file it adds content to an existing file.
