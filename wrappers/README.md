@@ -878,6 +878,16 @@ Summon(
 ⇒ summon armor_stand ~  ~1  ~  {"Invisible":1,"CustomName":"{\"text\":\"this is my name\",\"color\":\"dark_blue\"}","Invulnerable":1,"Small":1,"NoGravity":1,"ActiveEffects":[{"Id":24,"Amplifier":0,"Duration":200,"ShowParticles":0}],"Fire":100,"Rotation":[10.0,100.0]}
 ```
 
+### Summon.select
+
+If you have an existing Summon object(or Armorstand) you can invoke `.select` to give you a corresponding `Entity` selector.
+
+```dart
+Summon(Entities.chicken, tags: ['sel']).select(limit: 1) ⇒ @e[type=chicken, tag: sel, limit: 1]
+```
+
+For the options you can also set the used selector and whether to use tags or type.
+
 ### Item.SpawnEgg
 
 Gives you an Item object that can hold summon data for a spawnegg.

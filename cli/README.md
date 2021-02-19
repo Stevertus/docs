@@ -107,6 +107,16 @@ Therefore a few methods are provided apart from createProject, that give you the
   print(files); // => {pack.mcmeta: '...', data/minecraft/tags/functions/tick.json: '...', ...}
 ```
 
+### getCommands
+
+This command emmulates generating commands to one file, but returns the raw list of commands instead of writing the file. This does not consider Files, Packs or similar in the tree, so attention when using Groups, Execute and If
+You can also provide a Context for specifying the namespace, current filename, version and more.
+
+```dart
+  List<String> commands = getCommands(Say('hi'));
+  print(commands.first); // => "say hi"
+```
+
 ### getJsonMap
 
 This function gets a json representation(Map) of the tree structure before generating the files. This is the same that is used as the `objd.json` output in debug mode.

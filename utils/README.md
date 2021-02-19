@@ -125,33 +125,36 @@ dQvZRGUH4F8
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/dQvZRGUH4F8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-An armorstand can be created with the Summon Widget, but there is also a specific Widget with special properties for an ArmorStand.
+An armorstand wraps the Summon Widget with special properties for an ArmorStand.
 
-| constructor  |                                                        |
-| ------------ | ------------------------------------------------------ |
-| Location     | the location as type Location(default Location.here()) |
-| name         | a TextComponent respresenting the name of the entity   |
-| nameVisible  | bool if name is shown                                  |
-| invulnerable | bool                                                   |
-| invisible    | bool                                                   |
-| marker       | bool                                                   |
-| basePlate    | bool                                                   |
-| hasArms      | bool                                                   |
-| small        | bool                                                   |
-| gravity      | bool                                                   |
-| glowing      | bool                                                   |
-| tags         | List of tags as String                                 |
-| fire         | ticks(int) the entity should be on fire                |
-| rotation     | initial Rotation                                       |
-| mainHand     | An Item placed in the main hand                        |
-| offHand      | An Item placed in the offhand                          |
-| head         | An Item placed in the head slot                        |
-| chest        | An Item placed in the chest slot                       |
-| legs         | An Item placed in the legs slot                        |
-| boots        | An Item placed in the boots slot                       |
-| nbt          | additional nbt as Map(key-value pairs)                 |
+| constructor |                                                        |
+| ----------- | ------------------------------------------------------ |
+| Location    | the location as type Location(default Location.here()) |
+| invisible   | bool                                                   |
+| marker      | bool                                                   |
+| basePlate   | bool                                                   |
+| hasArms     | bool                                                   |
+| mainHand    | An Item placed in the main hand                        |
+| offHand     | An Item placed in the offhand                          |
+| head        | An Item placed in the head slot                        |
+| chest       | An Item placed in the chest slot                       |
+| legs        | An Item placed in the legs slot                        |
+| boots       | An Item placed in the boots slot                       |
+| pose        | A Pose describing rotations of all body parts          |
+| ...         | all properties from Summon                             |
 
-> Pose is coming soon
+**Pose**
+
+| Pose |                                        |
+| ---- | -------------------------------------- |
+| head | List of double values for the rotation |
+| body | same...                                |
+| lleg | same...                                |
+| rleg | same...                                |
+| larm | same...                                |
+| rarm | same...                                |
+
+On an existing pose, you can also get a new pose from an existing one with `setHead`, `setBody`, `setLegs` and `setArms`
 
 This generates a summon command:
 

@@ -99,19 +99,23 @@ Or
 
 ## Changelog of all the recent additions
 
-### 0.3.5
+### 0.3.6
 
-- added Annotation classes to be used with objd_gen, which drastically lowers code complexity
-- added ReplaceItem.copy, ReplaceItem.clear and ReplaceItem.modify implementing 1.17 item command
-- added a version parameter to context to allow widget to generate version specific code
-- added Particle.dust and Particle.copyWith alongside with major rework of the Particle command and simplification of code
-- added Recipe Widget with ability to generate Minecraft Recipe Files of any type
-- added the possibility to use a String as an Argument for Dimensions to support custom dimensions
-- added missing toPath property to Storage.modify
-- updated ReplaceItem to adapt automatically to the projects version
-- updated blocks, items, particles and entities to include content from 21w03a
-- fixed Effect nbt Generator not using the Byte Generator correctly
-- fixed issues with having two Packs at the top level of the tree
-- removed default scale value from Data.get
+- added Pose class and corresponding pose argument in ArmorStand
+- added Summon.select method to easily get an entity selector
+- added a getCommands method which generates the commands of a given Widget
+- added JsonFile Widget to easily generate json files
+- added further checks for encapsulating groups when using strait functionality
+- changed Location to be immutable and providing const constructors
+- changed Summon parameters to be class fields
+- changed ArmorStand and AreaEffectCloud to inherit Summon, you can now use all possibilites of Summon
+- changed Execute.storeScore to use Score instead of two seperate parameters
+- changed Bossbar.storeResult, Entity.storeResult and Location.storeResult to accept any Widget
+- changed Command generation behaviour from List to StringBuffer
+- updated blocks, items, particles and entities to include content from 21w07a
+- fixed TextHoverEvent.item using the id as value instead of whole nbt
+- fixed giving a negative `from` value to RandomScore would only generate positive numbers
+- fixed Bossbar methods would override previous uses of the same object
+- fixed Item.getMap returning the id in `item` instead of `id`, added optional parameter
 
 <div class="hero" style="padding:16px"><a class="nav-link action-button" href="/changes">Full Changelog</a></div>

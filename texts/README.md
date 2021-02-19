@@ -407,6 +407,8 @@ To modifiy some properties, there are some methods on the Bossbar to change the 
 
 ### Methods
 
+These methods give a new Widget that performs the action, the original widget does not change
+
 **remove** - removes the selected bossbar in the game
 **show** - takes in an entity and shows the bossbar for the selected players
 **get** - gets an BossbarOption of the specified Bossbar
