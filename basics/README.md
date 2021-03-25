@@ -48,6 +48,7 @@ The Context is a way to get certain important information from the parents.
 | prod       | see if project is in production mode(bool)                                        |
 | loadFile   | the filename of your load file                                                    |
 | mainFile   | the filename of your main file                                                    |
+| path       | the current Path induced if Folder Widget is used                                 |
 | prefixes   | a List of Strings that should be added in front of actions(mainly used by Groups) |
 
 You can use this context to build more modular Widgets and don't need to hardcode certain files and the pack id:
@@ -127,13 +128,14 @@ The [Pack]() class already required some files. The file class simply generates 
 
 The File constructor has two required arguments:
 
-| constructor |                                                                                               |
-| ----------- | --------------------------------------------------------------------------------------------- |
-| String      | the desired file path going from `/data/:packId:/functions/` on                               |
-| child       | the content of the file                                                                       |
-| execute     | bool if the function should be executed directly(optional)                                    |
-| create      | bool if the file should be created or just interpreted with execute(optional, default = true) |
-| pack        | overrides the automatically detected namespace(optional)                                      |
+| constructor   |                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| String        | the desired file path going from `/data/:packId:/functions/` on                                          |
+| child         | the content of the file                                                                                  |
+| execute       | bool if the function should be executed directly(optional)                                               |
+| create        | bool if the file should be created or just interpreted with execute(optional, default = true)            |
+| inheritFolder | bool if the file should use the inherited path from using Folder Widgets or use the root(default = true) |
+| pack          | overrides the automatically detected namespace(optional)                                                 |
 
 The File class can be used as often as you want and where you want, so you can also define a new file in a For container for example.
 **Example:**
@@ -152,6 +154,31 @@ Pack(
 )
 ```
 
+## Folder
+
+The Folder Widget gives you a way to place all following files inside a specific folder path.
+
+| constructor |                                             |
+| ----------- | ------------------------------------------- |
+| String      | the folder path                             |
+| child       | another Widget that inherits the given path |
+
+**Example:**
+
+```dart
+Folder(
+	'custom',
+	child: For.of([
+		File('main')
+		File('subfolder/test')
+	]),
+)
+```
+
+Would create 2 functions: `functions/custom/main.mcfunction` and `functions/custom/subfolder/test.mcfunction`
+
+Tip: in case you need the path at any time, access it using context.path
+
 ## IndexedFile
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/H141kG7Rqfc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -159,14 +186,15 @@ Pack(
 The IndexedFile behaves similar to File. Additionally it makes sure that each File, created with IndexedFile, is unique and does not get overwritten. In order to do that IndexedFile saves for each inputted name an id, which gets incremented after each use.
 This helps with large scale third-party file generation for example with [Group](#group), Execute or If.
 
-| constructor |                                                                          |
-| ----------- | ------------------------------------------------------------------------ |
-| String      | the name of the desired file                                             |
-| child       | the content of the file                                                  |
-| execute     | bool if the function should be executed directly(optional)               |
-| custom      | a custom name that overrides the id(useful for customization in Execute) |
-| path        | an optional folder to add the new function(like `objd` for Example)      |
-| pack        | overrides the automatically detected namespace                           |
+| constructor   |                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| String        | the name of the desired file                                                                              |
+| child         | the content of the file                                                                                   |
+| execute       | bool if the function should be executed directly(optional)                                                |
+| custom        | a custom name that overrides the id(useful for customization in Execute)                                  |
+| path          | an optional folder to add the new function(like `objd` for Example)                                       |
+| pack          | overrides the automatically detected namespace                                                            |
+| inheritFolder | bool if the file should use the inherited path from using Folder Widgets or use the root(default = false) |
 
 **Example:**
 
@@ -188,11 +216,12 @@ Creates 3 files: `index1, index2, objd/index3` and adds `function custom:objd/in
 
 The RawFile Widget enables you to generate your own Files right in the Wiget tree. Here you can define your own file extension, the file path and the content.
 
-| constructor |                                                        |
-| ----------- | ------------------------------------------------------ |
-| String      | the name of the file(with fileextension)               |
-| String      | the content of the file                                |
-| path        | changes the default path(in your pack) of the new file |
+| constructor   |                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| String        | the name of the file(with fileextension)                                                                  |
+| String        | the content of the file                                                                                   |
+| path          | changes the default path(in your pack) of the new file                                                    |
+| inheritFolder | bool if the file should use the inherited path from using Folder Widgets or use the root(default = false) |
 
 **Example:**
 
@@ -208,11 +237,12 @@ RawFile(
 
 As a way to easily generate .json files, you can use the JsonFile wrapper. Just provide a map or a list and a path
 
-| constructor |                                           |
-| ----------- | ----------------------------------------- |
-| String      | path of the file(without .json extension) |
-| Map         | the content of the file                   |
-| useGson     | whether to generate gson or plain json    |
+| constructor   |                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| String        | path of the file(without .json extension)                                                                 |
+| Map           | the content of the file                                                                                   |
+| useGson       | whether to generate gson or plain json                                                                    |
+| inheritFolder | bool if the file should use the inherited path from using Folder Widgets or use the root(default = false) |
 
 For a List just use `JsonFile.list`.
 
@@ -229,11 +259,12 @@ JsonFile(
 
 Extend is very similar to File, but instead of creating a new file it adds content to an existing file.
 
-| constructor |                                                                             |
-| ----------- | --------------------------------------------------------------------------- |
-| String      | the desired file path going from `/data/:packId:/functions/` on             |
-| child       | the additional content                                                      |
-| [first]     | Boolean if the content should be added in front of the original(def. false) |
+| constructor   |                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| String        | the desired file path going from `/data/:packId:/functions/` on                                          |
+| child         | the additional content                                                                                   |
+| first         | Boolean if the content should be added in front of the original(default = false)                         |
+| inheritFolder | bool if the file should use the inherited path from using Folder Widgets or use the root(default = true) |
 
 So lets say we already have some files in our pack, but want to add something to the main file somewhere entirely else in our project:
 
@@ -778,6 +809,13 @@ With `Scoreboard.setdisplay` you can display the values:
 | --------------------- | ----------------------------------------------- |
 | String                | name of the objective(required)                 |
 | display               | String for display location (default = sidebar) |
+
+`Scoreboard.modify` can change the rendertype to use hearts after its creation
+
+| Scoreboard.modify |                                 |
+| ----------------- | ------------------------------- |
+| String            | name of the objective(required) |
+| useHearts         | bool (default = false)          |
 
 ### Prefixes
 

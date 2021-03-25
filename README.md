@@ -99,23 +99,21 @@ Or
 
 ## Changelog of all the recent additions
 
-### 0.3.6
+### 0.4.0
 
-- added Pose class and corresponding pose argument in ArmorStand
-- added Summon.select method to easily get an entity selector
-- added a getCommands method which generates the commands of a given Widget
-- added JsonFile Widget to easily generate json files
-- added further checks for encapsulating groups when using strait functionality
-- changed Location to be immutable and providing const constructors
-- changed Summon parameters to be class fields
-- changed ArmorStand and AreaEffectCloud to inherit Summon, you can now use all possibilites of Summon
-- changed Execute.storeScore to use Score instead of two seperate parameters
-- changed Bossbar.storeResult, Entity.storeResult and Location.storeResult to accept any Widget
-- changed Command generation behaviour from List to StringBuffer
-- updated blocks, items, particles and entities to include content from 21w07a
-- fixed TextHoverEvent.item using the id as value instead of whole nbt
-- fixed giving a negative `from` value to RandomScore would only generate positive numbers
-- fixed Bossbar methods would override previous uses of the same object
-- fixed Item.getMap returning the id in `item` instead of `id`, added optional parameter
+- added Folder Widget to dynamically create folders. All Files and Rawfiles in the child marked with inheritFolder will choose this folder as a default
+- added Textcomponent.none for the edge case that you want to clear a previous set text
+- added predicate parameter to Selector
+- added Scoreboard.modify(whoever uses that)
+- added path argument to Context to retrieve the current path set by Folders
+- added a check to help to not exceed the 16 char limit on scoreboards
+- added additional metrics to measure project generation
+- updated all blocks, items and particles to include additions in 21w11a
+- migrated to null safety, read more here: https://dart.dev/null-safety
+- refactored apis, arrangement of required values and nullable types
+- refactored filepaths and path concatenation
+- changed dependencies (removed meta and changed colorize to ansicolor)
+- fixed Area generating NULL instead of 0 by default
+- fixed triggering hotreload if only properties on project changed and refactored mechanics
 
 <div class="hero" style="padding:16px"><a class="nav-link action-button" href="/changes">Full Changelog</a></div>

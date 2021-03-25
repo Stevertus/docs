@@ -1,5 +1,33 @@
 # Versions
 
+## 0.4
+
+### 0.4.0
+
+- added Folder Widget to dynamically create folders. All Files and Rawfiles in the child marked with inheritFolder will choose this folder as a default
+- added Textcomponent.none for the edge case that you want to clear a previous set text
+- added predicate parameter to Selector
+- added Scoreboard.modify(whoever uses that)
+- added path argument to Context to retrieve the current path set by Folders
+- added a check to help to not exceed the 16 char limit on scoreboards
+- added additional metrics to measure project generation
+- updated all blocks, items and particles to include additions in 21w11a
+- migrated to null safety, read more here: https://dart.dev/null-safety
+- refactored apis, arrangement of required values and nullable types
+- refactored filepaths and path concatenation
+- changed dependencies (removed meta and changed colorize to ansicolor)
+- fixed Area generating NULL instead of 0 by default
+- fixed triggering hotreload if only properties on project changed and refactored mechanics
+
+You need at least Dart 1.12 for this version of objD and most likely have to migrate to null safety yourself (which is easy with the provided tools: https://dart.dev/go/null-safety-migration)
+
+After doing so, ensure your version constaint is set to this to ensure all features are active:
+
+```yaml
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+```
+
 ## 0.3
 
 ### 0.3.6

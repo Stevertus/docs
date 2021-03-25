@@ -138,6 +138,10 @@ TextComponent.storageNbt(
 | -------------------------------- |
 | This inserts a simple line break |
 
+| TextComponent.none                                                           |
+| ---------------------------------------------------------------------------- |
+| Just an empty TextComponent, might be used to clear a previous textcomponent |
+
 | TextComponent.customFont |                                                         |
 | ------------------------ | ------------------------------------------------------- |
 | String                   | a Custom Font Character(\u[HEX]) to insert in your text |
