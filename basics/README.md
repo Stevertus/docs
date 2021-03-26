@@ -837,6 +837,12 @@ var score1 = board[Entity.Self()];
 var score2 = board["#some_constant"];
 ```
 
+For quick access to the most common ones you can also use `board.self`, `board.all` or `board.player`:
+
+```dart
+var score3 = board.player;
+```
+
 ## Score
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/WCzHHjScj28" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
