@@ -99,22 +99,17 @@ Or
 
 ## Changelog of all the recent additions
 
-### 0.4.0
+### 0.4.2 (the 1.17 update)
 
-- added Folder Widget to dynamically create folders. All Files and Rawfiles in the child marked with inheritFolder will choose this folder as a default
-- added Textcomponent.none for the edge case that you want to clear a previous set text
-- added predicate parameter to Selector
-- added Scoreboard.modify(whoever uses that)
-- added self, all and player getters on a Scoreboard to easily use the most common score entities
-- added path argument to Context to retrieve the current path set by Folders
-- added a check to help to not exceed the 16 char limit on scoreboards
-- added additional metrics to measure project generation
-- updated all blocks, items and particles to include additions in 21w11a
-- migrated to null safety, read more here: https://dart.dev/null-safety
-- refactored apis, arrangement of required values and nullable types
-- refactored filepaths and path concatenation
-- changed dependencies (removed meta and changed colorize to ansicolor)
-- fixed Area generating NULL instead of 0 by default
-- fixed triggering hotreload if only properties on project changed and refactored mechanics
+- added new Marker Widget to easily create new Markers(you can use it where ever Summon can be used)
+- added `Entity.Marker` selector that selects all markers with an optional data field
+- added `breakItem` to CustomBlock to manually specify the item that should be killed if player breaks the block
+- updated all blocks, items and particles to include changes in 1.17
+- updated ReplaceItem to reflect all the changes to the /item command
+- changed the list in For to be non nullable
+- changed CustomBlock break distance to 0.5(instead of 1)
+- changed the default for If.assignTag to Entity.Self as this is more common than Entity.Player
+- changed behaviour of Condition.not when used with a tag, this will generate [tag=!name] now instead of unless
+- fixed `List<Widget?>` is not a subtype of type `Widget`
 
 <div class="hero" style="padding:16px"><a class="nav-link action-button" href="/changes">Full Changelog</a></div>

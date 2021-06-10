@@ -105,6 +105,7 @@ This Module allows you to create infinite new blocks in the game. It works by pr
 | Item         | The item that should be used to place the block(you must use a spawnegg)             |
 | block        | the Block giving your custom block a hitbox(required)                                |
 | blockModel   | Item that overrides the item for the block Model                                     |
+| breakItem    | The Item to kill if a player breaks the item(default = provided block)               |
 | main         | Widget that runs every tick in the block                                             |
 | onPlaced     | Widget that gets executed when the block is placed                                   |
 | onBreak      | Widget that gets executed when the block is broken                                   |

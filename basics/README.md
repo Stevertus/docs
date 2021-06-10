@@ -486,9 +486,10 @@ For more information take a look at the Package at [pub.dev/packages/gson](https
 | playerName         | a String if you prefer to use a playername instead of arguments               |
 | predicate          | a String that refers to a Predicate in the Datapack                           |
 
-|**Methods** | |
-|sort|adds a sort attribute of type [Sort]()|
-|storeResult | Command, path, scale,datatype, useSuccess |
+| **Methods** |                                           |
+| ----------- | ----------------------------------------- |
+| sort        | adds a sort attribute of type [Sort]()    |
+| storeResult | Command, path, scale,datatype, useSuccess |
 
 storeResult stores a result or success of a command in the nbt path of an entity.
 **Example:**
@@ -639,6 +640,7 @@ Say(
 | Entity.All(...)           | creates an entity with @a                                   |
 | Entity.Random(...)        | creates an entity with @r                                   |
 | Entity.Select(Selector)   | takes in a Selector to select the Entity                    |
+| Entity.Marker(...)        | selects entities of type Marker: @e[type=minecraft:marker]  |
 | Entity.clone(Entity)      | creates a new instance of an already existing Entity object |
 
 ### Entity.not
@@ -786,10 +788,10 @@ objD automatically keeps a list of all scoreboards and inserts them into the giv
 
 ```dart
 Scoreboard(
-"death_count",
-type: "deathCount",
-display: TextComponent("This is how many deaths you have:"),
-addIntoLoad: true
+	"death_count",
+	type: "deathCount",
+	display: TextComponent("This is how many deaths you have:"),
+	addIntoLoad: true
 )
 Scoreboard("death_count")
 

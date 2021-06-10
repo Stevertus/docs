@@ -298,9 +298,9 @@ If(
 		Say("false")
 	]
 )
-⇒ execute if entity @p run tag @p add objd_isTrue
-⇒execute as @p if entity @s[tag=objd_isTrue] run say true
-⇒execute as @p unless entity @s[tag=objd_isTrue] run say false
+⇒ execute if entity @p run tag @s add objd_isTrue
+⇒execute if entity @s[tag=objd_isTrue] run say true
+⇒execute unless entity @s[tag=objd_isTrue] run say false
 ```
 
 You can also negate the Condition with `If.not`:
@@ -707,7 +707,7 @@ Give(Entity.Player(),
 
 ## ReplaceItem/Item
 
-Changes Item data of a specific container slot. Depending on the project version this uses replaceitem or the item command.
+Changes Item data of a specific container slot. Depending on the project version this uses /replaceitem or the /item command.
 
 for Entities:
 
@@ -729,7 +729,7 @@ ReplaceItem(Entity.Player(),
 	),
 )
 
-⇒ item entity @p hotbar.5 replace minecraft:apple{CustomModelData:339001} 5
+⇒ item replace entity @p hotbar.5 with minecraft:apple{CustomModelData:339001} 5
 ```
 
 This works the same with ReplaceItem.block:
@@ -740,9 +740,9 @@ This works the same with ReplaceItem.block:
 | item              | the Item you want to set(required)        |
 | slot              | a Slot Object with the slot set(required) |
 
-To copy an Item from one slot to another use `ReplaceItem.copy`:
+To copy an Item from one slot to another use `ReplaceItem.from`:
 
-| ReplaceItem.copy   |                                                   |
+| ReplaceItem.from   |                                                   |
 | ------------------ | ------------------------------------------------- |
 | Location or Entity | the target container to copy to                   |
 | slot               | the slot to copy to(required)                     |
@@ -753,14 +753,14 @@ To copy an Item from one slot to another use `ReplaceItem.copy`:
 **Example:**
 
 ```dart
-ReplaceItem.copy(
+ReplaceItem.from(
 	Entity.Player(),
 	slot: Slot.Hotbar5,
 	from: Location.here(),
 	fromSlot: Slot.Container1,
 )
 
-⇒ item entity @p hotbar.5 copy block ~ ~ ~ container.1
+⇒ item replace entity @p hotbar.5 from block ~ ~ ~ container.1
 ```
 
 ReplaceItem.modify takes a modifier path and applies it to an slot.

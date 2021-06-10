@@ -2,6 +2,29 @@
 
 ## 0.4
 
+### 0.4.2 (the 1.17 update)
+
+- added new Marker Widget to easily create new Markers(you can use it where ever Summon can be used)
+- added `Entity.Marker` selector that selects all markers with an optional data field
+- added `breakItem` to CustomBlock to manually specify the item that should be killed if player breaks the block
+- updated all blocks, items and particles to include changes in 1.17
+- updated ReplaceItem to reflect all the changes to the /item command
+- changed the list in For to be non nullable
+- changed CustomBlock break distance to 0.5(instead of 1)
+- changed the default for If.assignTag to Entity.Self as this is more common than Entity.Player
+- changed behaviour of Condition.not when used with a tag, this will generate [tag=!name] now instead of unless
+- fixed `List<Widget?>` is not a subtype of type `Widget`
+
+## 0.4.1
+
+- updated RandomScore to support 1.16 UUIDs
+- changed order of generation: load gets generated before anything else
+- fixed files not getting generated when being registered inside another file
+- fixed empty file when extending a file that does not exist before
+- fixed path comparison (which resulted in Extend not working)
+- fixed duplicate scoreboard when using addIntoLoad
+- fixed load and tick tags being generated with .mcfunction
+
 ### 0.4.0
 
 - added Folder Widget to dynamically create folders. All Files and Rawfiles in the child marked with inheritFolder will choose this folder as a default

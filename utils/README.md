@@ -221,6 +221,26 @@ AreaEffectCloud.persistent(Location.here(),tags:["new_tag"])
 ⇒ summon area_effect_cloud ~  ~  ~  {"Duration":-1,"WaitTime":-2147483648,"Tags":["new_tag"],"Age":-2147483648}
 ```
 
+## Marker
+
+Added in Minecraft 1.17 this entity only exists serversides and thus has no performance constraints for the client. Best used to save locations and even custom nbt data with the data field.
+
+| Marker   |                                                            |
+| -------- | ---------------------------------------------------------- |
+| Location | the location as type Location(default Location.here())     |
+| tags     | List of tags                                               |
+| nbt      | additional nbt as Map                                      |
+| data     | custom data to store(will just be added to nbt data field) |
+
+**Example:**
+
+```dart
+Marker(Location.here(),tags:["new_tag"],data: {'custom': 1})
+⇒ summon marker ~  ~  ~  {Tags:["new_tag"],data: {custom: 1}}
+```
+
+> Tip: you can also use Entity.Marker() to make it easier to select these markers(generates @e[type=minecraft:marker])
+
 ## Hologram
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/4JsmLMeH3J0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
