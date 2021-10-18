@@ -154,6 +154,8 @@ Pack(
 )
 ```
 
+> Tip: Execute `.run()` on an existing File object and get an execute representation.
+
 ## Folder
 
 The Folder Widget gives you a way to place all following files inside a specific folder path.
@@ -688,6 +690,8 @@ A tag saves a boolean value with an entity inside the game.
 | String      | the name of the tag                         |
 | entity      | the entity you that want to assign a tag to |
 | value       | the boolean value(default true)             |
+
+As a clearer way, you can also use `Tag.add(...)` or `Tag.remove(...)` making your code more readable.
 
 **Example:**
 
@@ -1343,6 +1347,8 @@ Rotation.south(dx: 45)  ⇒  45  0
 ```
 
 Here you can also specify the y-value and an additional difference in x.
+
+> Tip: You can also use `Rotation.checkNorth(), Rotation.checkEast()...` to get a range testing specific rotations used in entities
 
 ### Get Direction
 

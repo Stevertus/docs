@@ -160,7 +160,7 @@ Include the package along with build_runner in your pubspec.yaml as a dev depend
 ```
 dev_dependencies:
   build_runner:
-  objd_gen: ^0.0.1
+  objd_gen: ^0.0.3
 ```
 
 The generators put the new dart classes and functions in a new file alongside your annotated file. To make it available include it with the part statement:
@@ -247,12 +247,12 @@ final File LoadFile = File(
 
 Inside the parentheses of `@Func()` you can also provide various parameters to customize the file generation:
 
-| @Func   |                                                                          |
-| ------- | ------------------------------------------------------------------------ |
-| name    | Provide a custom filename different from the variable name               |
-| path    | Give a custom path for your function                                     |
-| execute | whether to execute your File(when included somewhere in the widget tree) |
-| create  | whether to actually create the file or not                               |
+| @Func   |                                                                                                   |
+| ------- | ------------------------------------------------------------------------------------------------- |
+| name    | Provide a custom filename different from the variable name                                        |
+| path    | Give a custom path for your function(default = `/`), change this to null to use the source folder |
+| execute | whether to execute your File(when included somewhere in the widget tree)                          |
+| create  | whether to actually create the file or not                                                        |
 
 **Example:**
 

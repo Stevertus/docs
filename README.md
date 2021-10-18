@@ -26,7 +26,7 @@ import 'package:objd/core.dart';
 @Prj()
 final example = NamespacePack();
 
-@Pck()
+@Pck(load: 'load')
 final namespace = [LoadFile];
 
 @Func()

@@ -243,6 +243,8 @@ Log(Score(Entity.Selected(),"objective"),to: Entity.Selected())
 ⇒ tellraw @s [{"text":"Console > ","color":"dark_aqua"},{"score":{"name":"@s","objective":"objective"}}]
 ```
 
+You can also use Log.debug and Log.info with the same syntax to get a more prominent and less prominent version.
+
 ## Title
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/wGpHZ2QNkgA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

@@ -245,9 +245,9 @@ Sets the execution dimension(execute in) to either `Dimension.overworld`, `Dimen
 
 All of these constructors are also available as methods with some additional utils:
 
-| Methods |                                             |
-| ------- | ------------------------------------------- |
-| center  | centeres the alignment(middle of the block) |
+| Methods |                                                                                 |
+| ------- | ------------------------------------------------------------------------------- |
+| center  | centeres the alignment(middle of the block) with optional height(default = 0.5) |
 
 That means you can chain the actions, like with score, and use multiple actions at once:
 
@@ -372,6 +372,7 @@ For Score, Block and Entity there is also a named constructor along with:
 | ---------------- | ----------------------------------------------------------- |
 | Area             | the Area of blocks that you want to compare                 |
 | compare          | the lowest comparison Location of the area of the same size |
+| masked           | optionally ignore air(default = false)                      |
 
 **Condition.block**: also requires a block type:
 
