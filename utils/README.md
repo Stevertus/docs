@@ -778,7 +778,7 @@ ServerVersionCheck(
 )
 ```
 
-This methods summons an entity and puts some exclusive items in their hands to detect the version.
+This methods summons an entity and puts some exclusive items in their inventory to detect the version.
 
 ## PlayerJoin
 
@@ -918,4 +918,23 @@ In case you need to, you can also serialize a recipe to and from json(represente
 
 ```dart
 Recipe.fromJson(r.toJson());
+```
+
+## InitScore
+
+Initializes a Score to value if not set previously .
+
+| constructor |                              |
+| ----------- | ---------------------------- |
+| Score       | the mandatory Score          |
+| value       | the aimed value(default = 1) |
+|             |
+
+**Example:** (preferably used in a load function)
+
+```dart
+InitScore(
+	Score(Entity.Self(), 'myscore'),
+	value: 10,
+)
 ```
