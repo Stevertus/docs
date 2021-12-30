@@ -861,6 +861,7 @@ It implements one base class with no functionality and several methods to do act
 | Entity      | the entity within the scoreboard                                                      |
 | String      | the name of the objective                                                             |
 | addNew      | bool whether it should add the scoreboard itself if it does not exist(default = true) |
+| type        | type of generated Scoreboard(default = dummy, only if addNew)                         |
 
 > With the addNew property it is not required to add a scoreboard before!
 

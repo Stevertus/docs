@@ -782,7 +782,7 @@ This methods summons an entity and puts some exclusive items in their inventory 
 
 ## PlayerJoin
 
-Allows you to specify what should happen if a player joins. This can be triggered every time or just once with PlayerJoin.inital
+Allows you to specify what should happen if a player joins. This can be triggered every time or just once with PlayerJoin.inital or when rejoining with PlayerJojn.rejoin.
 
 | constructor |                                                              |
 | ----------- | ------------------------------------------------------------ |
@@ -790,7 +790,7 @@ Allows you to specify what should happen if a player joins. This can be triggere
 | target      | The targeted player that will throw this event(default = @a) |
 | score       | The scoreboard that is used(default = `objd_join`)           |
 
-This will create a [score] that counts leave_game stats and thus detects if a player rejoins.
+This will create a [score] that counts leave_game stats and checks if the player has the [score] thus detecting when a player joins.
 
 **Example:**
 
@@ -821,6 +821,14 @@ PlayerJoin.initial(
 => tellraw @a [{"text":"Console > ","color":"dark_aqua"},{"score":{"name":"#current","objective":"objd_join"}}]
 => scoreboard players operation @s objd_join = #current objd_join
 ```
+
+| PlayerJoin.rejoin |                                                              |
+| ----------------- | ------------------------------------------------------------ |
+| then              | A Widget that gets executed by the player that joins         |
+| target            | The targeted player that will throw this event(default = @a) |
+| score             | The scoreboard that is used(default = `objd_join`)           |
+
+This will create a [score] that counts leave_game stats and thus detects if a player rejoins.
 
 ## Recipe
 
