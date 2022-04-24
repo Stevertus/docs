@@ -5,13 +5,13 @@ title: ObjD
 actionText: Get Started →
 actionLink: /guide/
 features:
-  - title: Built-in Generators
-    details: "All your favorite generators in one place: Raycasting, Title, Book, Nbt, Entity, and much more Generators"
+  - title: IDE tooling
+    details: "Use all the powerfull IDE tools of Dart: Autocompletion, Inline Documentation, Linting, Formatting... Directly in intelliJ or vsCode"
   - title: Comfort
     details: objD generates Scoreboards, setup files and namespaces by itself and provides a high level API
   - title: Expand
     details: You can build your own Widgets, customize arguments and create your own APIs using the tools that objD gives you.
-footer: MIT Licensed | Copyright © 2021 Stevertus
+footer: MIT Licensed | Copyright © 2022 Stevertus
 ---
 
 ## Program Datapacks!
@@ -88,7 +88,7 @@ final main = If(
 
 Get started today by installing objD and playing around.
 
-<div class="hero"><a class="nav-link action-button" href="/guide">Get Started →</a></div>
+<div class="hero"><a class="nav-link action-button" href="/cli">Get Started →</a></div>
 Or
 
 [Contribute on GitHub](https://github.com/Stevertus/objD)

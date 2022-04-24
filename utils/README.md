@@ -1,6 +1,6 @@
 ---
 sidebar: auto
-footer: MIT Licensed | Copyright © 2021 Stevertus
+footer: MIT Licensed | Copyright © 2022 Stevertus
 prev: /texts/
 next: /modules/
 ---

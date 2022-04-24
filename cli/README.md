@@ -1,6 +1,6 @@
 ---
 sidebar: auto
-footer: MIT Licensed | Copyright © 2021 Stevertus
+footer: MIT Licensed | Copyright © 2022 Stevertus
 prev: /modules/
 next: false
 ---
@@ -10,20 +10,20 @@ next: false
 The objD CLI is an additional package to handle execution, building and deploying of your project. To activate the global package(will be available anywhere on your system), run this command:
 
 ```
-pub global activate objd_cli
+dart pub global activate objd_cli
 ```
 
 This will add the commands to your console.
 To run a command run:
 
 ```
-objd [command] [args]
+dart pub global run objd_cli [command] [args]
 ```
 
 OR
 
 ```
-pub global run objd_cli:objd [command] [args]
+objd [command] [args]
 ```
 
 > If the objd command is not available, you have to add the pub cache to your system path. Follow this tutorial: [https://www.dartlang.org/tools/pub/cmd/pub-global#running-a-script-from-your-path](https://www.dartlang.org/tools/pub/cmd/pub-global#running-a-script-from-your-path)
@@ -117,13 +117,13 @@ part '[your_filename].g.dart';
 After writing all your Widgets,this package generates the associated classes and functions with:
 
 ```
-pub run build_runner build
+dart pub run build_runner build
 ```
 
 Or if you want it to generate automatically after saving run:
 
 ```
-pub run build_runner watch
+dart pub run build_runner watch
 ```
 
 ### Widget
