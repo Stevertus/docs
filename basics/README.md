@@ -393,6 +393,33 @@ CommandList.str("""
 
 The slashes are automatically filtered out.
 
+## CommandBuilder
+A widget which lets you construct complex commands with optional parts, multiple subcommands and different types of data in a declarative way. 
+Mainly used inside of wrapper widgets for minecrafts commands.
+
+Construct a builder with an initial command:  
+```dart 
+final builder = CommandBuilder('damage $target $amount')
+```
+
+Then you can call various methods appending an argument conditionally(if the input is null, nothing gets appended). All methods have in common the argument `prefix` for adding something infront of the passed type, the argument `suffix`, added after and a list `also` which is also appended seperated by spaces.
+
+The following methods/types are supported: `.string, .number, .entity` and ` .location`.
+
+```dart
+builder.string(damageType)
+	.when(
+		location != null,
+		then: 'at $location',
+		otherwise: by != null ? 'by $by' : null,
+	)
+	.string(cause?.toString(), prefix: 'from ');
+```
+
+`.when` is used when there are two possible ways the command could generate. When the condition is evaluated as true, `then` is used, else `otherwise`. Both could also be `null`, thus nothing being appended.
+
+In case you want to build strings/commands yourself, take a look at the source code for `Damage, Clone, Data, Effect, Ride, FillBiome ...` (more will follow) to see CommandBuilder in use.
+
 ## Group
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/egLIzL5i4wQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -1142,6 +1169,31 @@ This is a special function that creates a block with the option to add nbt data 
 
 With this function you can fully configure your blocks.
 
+## Biome
+
+A wrapper for all biomes in minecraft. 
+**Usage:**
+
+```dart
+Block([biome_id]) // as string or
+Biomes.[biome_id]
+```
+
+You can also insert a custom biome by providing a string:
+
+| constructor |                        |
+| ----------- | ---------------------- |
+| String      | the minecraft block id |
+
+**Example:**
+
+```dart
+If(
+	Biomes.desert,
+	then: [Say('In desert!')]
+)
+```
+
 ## Location
 
 In the block example we already used a class called Location. This translates into Minecraft Coordinates.
@@ -1389,7 +1441,7 @@ Data(
 ⇒ data merge entity @s {"Invisible":1,"NoGravity":1}
 ```
 
-> There are also subconstructors for each operation type(Data.merge, Data.get, Data.remove)
+> There are also subconstructors for each operation type(`Data.merge, Data.get, Data.remove`)
 
 ### DataModify
 
@@ -1425,7 +1477,6 @@ Data.modify(
 ```
 
 Or
-So we can for Example use
 
 ```dart
 Data.modify(
@@ -1440,6 +1491,16 @@ Data.modify(
 // this just copies one property to another
 ⇒ data modify @s my_Custom_Path2 insert from entity @s my_Custom_Path
 ```
+
+For string subcommands 1.19.4 use the corresponding constructors `setString, mergeString, prependString, appendString` and `insertString` similar to above, but you can also add start and end indezies to cut of the string: 
+
+| DataModify String |                                                                                  |
+| ----------------- | -------------------------------------------------------------------------------- |
+| dynamic           | The source of the modification. Can be a Map, String, Number, Entity or Location |
+| fromPath          | optional path for the Entity or Location source from where to read the data      |
+| start             | optional start index for substring                                               |
+| end               | optional end index for substring                                                 |
+
 
 ### Data.copy
 
@@ -1465,13 +1526,13 @@ Data.copy(
 ### Data.fromScore
 
 You can also convert a score directly to a nbt field with Data.fromScore:
-|Data.fromScore| |
-|--|--|
-|dynamic|The target Entity OR Location which you want to modify|
-|path|the nbt path you want to copy to|
-|score|The source Score|
-|scale|optional int (default = 1)|
-|datatype| a Java datatype for the score(default = byte) |
+| Data.fromScore |                                                        |
+| -------------- | ------------------------------------------------------ |
+| dynamic        | The target Entity OR Location which you want to modify |
+| path           | the nbt path you want to copy to                       |
+| score          | The source Score                                       |
+| scale          | optional int (default = 1)                             |
+| datatype       | a Java datatype for the score(default = byte)          |
 
 ```dart
 Data.fromScore(
@@ -1570,6 +1631,8 @@ To help you with the hideFlags value, there is the HideFlags method. It translat
 | canDestroy  | whether to show the canDestroy tag    |
 | canPlaceOn  | whether to show the canPlaceOn tag    |
 | others      | whether to show other nbt information |
+| dye         | whether to show other nbt information |
+| armorTrims  | whether to show other nbt information |
 
 **Example:**
 
@@ -1648,3 +1711,69 @@ ReplaceItem.block(
 )
 ⇒ replaceitem block ~  ~  ~  container.25 minecraft:beef
 ```
+
+## Time 
+Object that represents time in minecraft. Usually translated into ticks (20ticks = 1 second). 
+
+You can directly construct the time from the integer number of ticks:  
+```dart 
+var t = Time(2400);
+```
+
+However this is not the easiest way to construct times. The simplest is to use number extensions explained below. For a handy interface which does the conversions automatically, use `Time.duration`: 
+
+| Time.duration |                                   |
+| ------------- | --------------------------------- |
+| ticks         | integer number of ticks(optional) |
+| days          | number of ingame days(optional)   |
+| minutes       | number of minutes(optional)       |
+| seconds       | number of seconds(optional)       |
+
+If you just want a integer number of seconds, minutes or days, you can also use constant constructors `Time.seconds, Time.minutes, Time.days`.
+
+So we can write the same 1min 30s from above the following ways(also using fractional timesteps):
+
+
+```dart
+t = Time.seconds(90),
+t = Time.duration(minutes: 1.5),
+t = Time.duration(minutes: 1, seconds: 30),
+```
+
+In case of the [Effect](/wrappers/#effect) widget, it might also be useful to pass infinite time. 
+This can be done with `Time.infinite()`. Otherwise when a finite time is expected, an error is thrown.
+
+### Number Extensions & Operators 
+Yet an even **more intuitive** way is to use built in getters on the `num` type and operators.
+
+On any number(`int, double, ...`) you can call `.ticks, .seconds, .minutes` and `.days`:  
+
+```dart
+t = 2400.ticks,
+t = 90.seconds,
+t = 1.5.minutes,
+```
+
+Also all common math and comparison operators are available:  
+
+```dart 
+t = 1.minutes + 30.seconds 
+t += 20.seconds
+if(t > 10.seconds) {
+	// do something conditional
+} 
+```
+
+Using this style is highly recommended, as it leads to readable and understandable code.
+
+### String Conversion
+In commands when Time is used, string are generated dynamically.
+
+When days can be expressed in `0.5` steps, the suffix `d` is generated. 
+
+When seconds can be expressed in `0.25` steps, the suffix `s` is generated. 
+
+So **a word of warning**, even when providing integer ticks, objD can decide to simplify the commands. 
+For example `Time(10)` becomes `0.5s`. This behaviour might change in the future, if there are serious concerns.  
+
+In case you want to have just the ticks, either use `.ticks` on a Time object or call `toString` with `reduce` set to false: `Time(10).toString(reduce=false) => 10`.

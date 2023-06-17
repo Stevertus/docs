@@ -57,6 +57,7 @@ There are also some other data sources:
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | String                  | the translate key (required)                                                                                         |
 | conversionFlags         | a List containing a String, TextComponent or another List of TextComponents that replace placeholder values(e.g \$s) |
+| fallback                | fallback String when translation is not available                                                                    |
 | ...same properties...   | from TextComponent                                                                                                   |
 
 | TextComponent.score   |                                            |
@@ -286,12 +287,12 @@ Title.clear clears all titles again:
 
 Title.times sets the timings
 
-| Title.times |                                               |
-| ----------- | --------------------------------------------- |
-| selector    | edit the durations for this selector          |
-| fadein      | the fadein time in ticks(default 20)          |
-| display     | the time the title stays in ticks(default 60) |
-| fadeout     | the fadeout time in ticks(default 20)         |
+| Title.times |                                                              |
+| ----------- | ------------------------------------------------------------ |
+| selector    | edit the durations for this selector                         |
+| fadein      | the fadein [Time](/basics/time) (default 1 second)           |
+| display     | the [Time](/basics/time) the title stays (default 3 seconds) |
+| fadeout     | the fadeout [Time](/basics/time) in ticks(default 1 second)  |
 
 And also a resetter for that:
 
@@ -312,8 +313,8 @@ Title.actionbar(
 Title.clear(Entity())
 ⇒ title @e clear
 
-Title.times(Entity.All(),fadein:30,display:40,fadeout:20)
-⇒ title @a times 30 40 20
+Title.times(Entity.All(),fadein:30.ticks,display:2.seconds,fadeout:1.seconds)
+⇒ title @a times 30 2s 1s
 
 Title.resetTimes(Entity.All())
 ⇒ title @a reset
@@ -357,9 +358,9 @@ This provides a book generator to use TextComponents with Books.
 | ...              | same as **Item**                            |
 
 The page itself is another class:
-| BookPage | |
-|--|--|
-| content | either a String, TextComponent or List of TextComponents |
+| BookPage |                                                          |
+| -------- | -------------------------------------------------------- |
+| content  | either a String, TextComponent or List of TextComponents |
 
 Or with a custom font character:
 

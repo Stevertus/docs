@@ -20,7 +20,7 @@ A Timeout is a simple delay in your code. It is done with the Schedule Command a
 | ----------- | --------------------------------------------- |
 | String      | the name of the timeout(used as filename)     |
 | children    | the content that should be delayed            |
-| ticks       | the delay as integer ticks                    |
+| ticks       | the delay as [Time](/basics/time) object      |
 | path        | the folder path(optional, default = "timers") |
 
 **Example:**
@@ -29,7 +29,7 @@ A Timeout is a simple delay in your code. It is done with the Schedule Command a
 Timeout(
 	"timeout1",
 	children: [Say("Timeout reached")],
-	ticks: 100
+	ticks: 100.ticks
 )
 ⇒ schedule function example:timers/timeout1 100t
 // timers/timeout1:
@@ -46,7 +46,7 @@ A Timer is very similar to a Timeout, but instead of delaying the code it is run
 | ----------- | --------------------------------------------- |
 | String      | the name of the timeout(used as filename)     |
 | children    | the content that should be delayed            |
-| ticks       | the delay as integer ticks                    |
+| ticks       | the delay as [Time](/basics/time) object      |
 | infinite    | should it run infinitely? (default = true)    |
 | path        | the folder path(optional, default = "timers") |
 
@@ -56,7 +56,7 @@ A Timer is very similar to a Timeout, but instead of delaying the code it is run
 Timer(
 	"timer1",
 	children: [Say("Timer reached")],
-	ticks: 100
+	ticks: 2.minutes
 )
 ⇒ function example:timers/timer1
 // timers/timer1:
@@ -91,7 +91,7 @@ The Repeat Widget repeats a given action multiple times with a tick delay.
 | String      | name of the Repeat                                                      |
 | child       | the action to perform(required)                                         |
 | to          | times to repeat(required)                                               |
-| ticks       | ticks between repetitions(default = 1 tick)                             |
+| ticks       | time between repetitions(default = 1 tick)                              |
 | path        | where to generate a new repeat file(default = timers)                   |
 | counter     | the objective used to hold the current iteration(default = objd_repeat) |
 
@@ -101,7 +101,7 @@ The Repeat Widget repeats a given action multiple times with a tick delay.
 Repeat("repeat1",
 	to:  10,
 	child:  Log("test"),
-	ticks:  20
+	ticks:  20.ticks
 )
 ⇒ scoreboard players set repeat1 objd_repeat 0
 ⇒ function mypack:timers/repeat1
@@ -117,9 +117,6 @@ execute if score repeat1 objd_repeat matches ..10 run schedule function mypack:t
 ```
 
 This function is executed until the score becomes 11.
-
-video
-dQvZRGUH4F8
 
 ## ArmorStand
 
@@ -241,11 +238,131 @@ Marker(Location.here(),tags:["new_tag"],data: {'custom': 1})
 
 > Tip: you can also use Entity.Marker() to make it easier to select these markers(generates @e[type=minecraft:marker])
 
+## Interaction
+
+Spawns an interaction entity. Can be used to detect player left/right clicks efficiently. 
+
+| Interaction |                                                        |
+| ----------- | ------------------------------------------------------ |
+| Location    | the location as type Location(default Location.here()) |
+| height      | double denoting the height in blocks (optional)        |
+| width       | double denoting the width in blocks (optional)         |
+| response    | if true, the player shows animations (optional)        |
+| tags        | List of tags                                           |
+| nbt         | additional nbt as Map                                  |
+
+**Example:**
+
+```dart
+Interaction(Location.here(),height: 2, width: 5)
+⇒ summon minecraft:interaction ~  ~  ~  {width: 5.0d, height: 2.0d}
+```
+
+In your tick function, you can use `.onInteract()` or `.onAttack` to detect the interaction. 
+This uses the execute on command, and removes the interaction nbt data if present:  
+
+```dart
+final i = Interaction(Location.here(),height: 2, width: 5)
+i.onInteract(select: i.select(limit:1).sort(Sort.nearest), run: [Say('clicked')])
+```
+
+*Note*: it might be more efficient to do this with Advancements. 
+
+## Display
+
+Spawns an diplay entity used to display and animate text, items and blocks in the world, having the following common fields.
+
+| Display.[item\| block \| text ] |                                                                                                                                                                       |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| interpolationDuration           | Time denoting the duration for the interpolation  (optional)                                                                                                          |
+| startInterpolation              | Time denoting when to start the animation  (optional)                                                                                                                 |
+| shadowRadius                    | double size of the shadow (optional)                                                                                                                                  |
+| shadowStrength                  | double strength of the shadow (optional)                                                                                                                              |
+| viewRange                       | range from which entity is visible (optional)                                                                                                                         |
+| billboardType                   | `BillbordType.fixed`(fixed location), `BillbordType.horizontal`(rotates horizontally facing the camera) or `BillbordType.center`(always faces the camera)  (optional) |
+| transformation                  | a Transformation object describing the scale, rotation and translation of the display (optional)                                                                      |
+| tags                            | List of tags(optional)                                                                                                                                                |
+| nbt                             | additional nbt as Map (optional)                                                                                                                                      |
+
+
+
+| Display.item |                                                                          |
+| ------------ | ------------------------------------------------------------------------ |
+| Location     | the location to spawn at                                                 |
+| Item         | the item to show                                                         |
+| itemDisplay  | type of ItemDisplay to use (eg `ItemDisplay.ground. Itemdisplay.gui...`) |
+| ...          | any common properties from above                                         |
+
+| Display.block |                                  |
+| ------------- | -------------------------------- |
+| Location      | the location to spawn at         |
+| Block         | the block to show                |
+| ...           | any common properties from above |
+
+
+| Display.text  |                                                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| Location      | the location to spawn at                                                                                        |
+| TextComponent | the text to show                                                                                                |
+| alignment     | a TextAlignment object aligning the text (`TextAlignment.left, TextAlignment.center` or ` TextAlignment.right`) |
+| textOpacity   | Alpha value of rendered text. Alpha value is from 0 to 255. (optional)                                          |
+| seeThrough    | Whether the text is visible through blocks(optional)                                                            |
+| line_width    | Maximum line width used to split lines(optional)                                                                |
+| ...           | any common properties from above                                                                                |
+
+### Transformation 
+An object describing the scale, rotation and translation of a display entity. 
+
+| constructor    |                                                                                |
+| -------------- | ------------------------------------------------------------------------------ |
+| right_rotation | Rotation after scaling, tuple with x,y,z components (default 0,0,0)            |
+| left_rotation  | Rotation before scaling, tuple with x,y,z components (default 0,0,0)           |
+| scale          | scaling(1 being one block), tuple with x,y,z components (default 1,1,1)        |
+| translation    | translation, shifting the display  tuple with x,y,z components (default 0,0,0) |
+
+There are also `Transformation.scale, .translate, .rotate` with which you can change one property at a time. 
+`Transformation.scaleAll` takes one double and scales uniformly. 
+`Transformation.centered` has the same effect as the default constructor, 
+but automatically calculates the translation, such that the entity stays centered when scaled. 
+
+
+### Animations 
+
+To animate a display entity, you can use the static method `Display.animate`. 
+Given the entity to animate, duration, start time, and animatable fields, this constructs a data command.
+
+| Display.animate |                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------ |
+| Entity          | Display entity to animate                                                                        |
+| Time            | duration of the animation                                                                        |
+| start           | time to wait until animation starts(default=0t)                                                  |
+| shadowRadius    | double size of the shadow (optional)                                                             |
+| shadowStrength  | double strength of the shadow (optional)                                                         |
+| transformation  | a Transformation object describing the scale, rotation and translation of the display (optional) |
+| textOpacity     | Alpha value of rendered text. Alpha value is from 0 to 255. (optional)                           |
+
+
+You can also use `Display.set` with the same properties to omit the animation duration.
+
+**Example:**
+```dart
+Display.animate(
+	Entity(type: Entities.item_display),
+	10.seconds,
+	textOpacity: 50,
+	transformation: Transformation.centered(
+		scale: (2, 2, 2),
+	),
+),
+⇒ data merge entity @e[type=minecraft:item_display] {interpolation_duration:200,start_interpolation:0,textOpacity:50,transformation:{right_rotation:[0.0d,0.0d,0.0d,1.0d],left_rotation:[0.0d,0.0d,0.0d,1.0d],scale:[2.0d,2.0d,2.0d],translation:[-1.0d,-1.0d,-1.0d]}}
+
+```
+
 ## Hologram
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/4JsmLMeH3J0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-A Hologram shows a floating text at a specific Location using Armorstands.
+A Hologram shows a floating text at a specific Location using Armorstands. *Note*: from version 1.19.4 use Display entities instead.
 
 | constructor |                                                   |
 | ----------- | ------------------------------------------------- |

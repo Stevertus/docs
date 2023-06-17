@@ -48,7 +48,7 @@ The ScoreTimerModule implements a continuous timer with a delay of a number of t
 | constructor |                                                                       |
 | ----------- | --------------------------------------------------------------------- |
 | String      | the name of the Timer and the Scoreboard                              |
-| ticks       | the delay in ticks between each execution(required)                   |
+| ticks       | the delay as [Time](/basics/time) between each execution(required)    |
 | child       | a Widget that is executed after the delay                             |
 | steps       | the number that it counts up every time(default = 1)                  |
 | start       | a number that is used to reset the timer after the delay(default = 0) |
@@ -60,7 +60,7 @@ The ScoreTimerModule implements a continuous timer with a delay of a number of t
 ```dart
 ScoreTimerModule(
           "timer1",
-          ticks: 200, // 10sec
+          ticks: 200.ticks, // 10sec
           child: Log("Timer triggered"),
           steps: 1,
           start: 0,

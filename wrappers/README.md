@@ -87,7 +87,7 @@ One of the most used commands has a widget too. The execute command has multiple
 | as             | an [Entity](#entity) that runs the commands                           |
 | at             | an [Entity](#entity) from where the command should run                |
 | If             | a Condition that must be true to execute the commands                 |
-| location       | a Location or Entity from where to run the commands                   |
+| location       | a Location, Heightmap or Entity from where to run the commands        |
 | align          | String with align statements e.g: "xyz"                               |
 | anchor         | either Facing.eyes or Facing.feet                                     |
 | facing         | A Location or Entity to rotate to                                     |
@@ -175,10 +175,10 @@ Execute.asat(
 ⇒ execute as @p at @s run say I get executed
 ```
 
-| Execute.positioned |                  |
-| ------------------ | ---------------- |
-| Entity\|Location   | the new position |
-| ...                |                  |
+| Execute.positioned          |                  |
+| --------------------------- | ---------------- |
+| Entity\|Location\|Heightmap | the new position |
+| ...                         |                  |
 
 Positioned sets the execution point of the command to a new Location or Entity.
 
@@ -190,8 +190,22 @@ Execute.positioned(
 	]
 ),
 
-⇒ execute positioned as @p run say I get executed
+⇒ execute positioned at @p run say I get executed
 ```
+
+When given a Heightmap, sets the y-coordinate to the current positions heightmap(`world_suface, motion_blocking, motion_blocking_no_leaves, ocean_floor`) by generating the over subcommand:
+
+```dart
+Execute.positioned(
+	Heighmap.motion_blocking, // Location...
+	children: List<Widget> [
+		Command("/say I get executed")
+	]
+),
+
+⇒ execute positioned over motion_blocking run say I get executed
+```
+
 
 | Execute.align |                                 |
 | ------------- | ------------------------------- |
@@ -199,6 +213,29 @@ Execute.positioned(
 | ...           |                                 |
 
 Aligns the position to the corners of the block grid.
+
+| Execute.on |                                                                                                                                                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Relation   | relation type either `Relation.attacker, Relation.controller, Relation.leasher, Relation.origin, Relation.owner, Relation.passengers, Relation.target, Relation.vehicle` |
+| ...        |                                                                                                                                                                          |
+
+Changes the executor to a related entity, but keeps the position the same 
+
+| Execute.summon |                                                   |
+| -------------- | ------------------------------------------------- |
+| EntityType     | the type of entity to summon, eg `Entities.sheep` |
+| ...            |                                                   |
+
+
+Summons a new entity at execution position and changes the executor to this summoned entity.
+```dart
+Execute.summon(
+	Entities.sheep,
+	children: [
+		Tag('Test').add()
+	]
+)
+```
 
 | Execute.anchored |                            |
 | ---------------- | -------------------------- |
@@ -335,6 +372,8 @@ Well it is not as easy as it looks. A condition can accept many values and this 
 | Data.get                 | if data entity @s flying          | Just Data.get is accepted!                                  |
 | Tag                      | if entity @s[tag=test]            | turns a tag into an entity                                  |
 | Location                 | unless block ~ ~2 ~ air           | Just checks whether a block is present                      |
+| Biome                    | if biome minecraft:desert         | Checks if the current execution location is in a biome      |
+| Dimension                | if dimension minecraft:overworld  | Checks if the current execution location is in a dimension  |
 | Condition                | if entity @s if block ~ ~ ~ stone | Yes, you can nest Conditions like Widgets and combine them. |
 
 **Examples:**
@@ -366,7 +405,7 @@ If.not(
 ⇒ execute unless score Stevertus objective matches 10 run say score
 ```
 
-For Score, Block and Entity there is also a named constructor along with:
+For Score, Block, Biome, Dimension and Entity there is also a named constructor along with:
 
 | Condition.blocks |                                                             |
 | ---------------- | ----------------------------------------------------------- |
@@ -385,6 +424,17 @@ If(
 	then:[Say('stone')],
 )
 ⇒ execute if block ~ ~ ~ minecraft:stone run say stone
+```
+
+**Condition.loaded**: checks if the chunk of the location is loaded:
+
+```dart
+If(
+	Condition.loaded(Location.here()),
+	then: [
+		Say('test'),
+	],
+)
 ```
 
 **Condition.predicate**: checks for a predicate:
@@ -516,13 +566,13 @@ Team.add(
 
 This command is used to give an entity a specific effect and affect their gameplay.
 
-| constructor   |                                                            |
-| ------------- | ---------------------------------------------------------- |
-| EffectType    | the kind of effect - usage: EffectType.[effect_id]         |
-| entity        | the Entity you want to give the effect to(required)        |
-| duration      | the amount of seconds the effect should last(default = 30) |
-| amplifier     | the strength of the effect(default = 1)                    |
-| showParticles | bool if effect particles should be visible(default = true) |
+| constructor   |                                                                                    |
+| ------------- | ---------------------------------------------------------------------------------- |
+| EffectType    | the kind of effect - usage: EffectType.[effect_id]                                 |
+| entity        | the Entity you want to give the effect to(required)                                |
+| duration      | the Time the effect should last(default = 30 seconds), can also be `Time.infinite` |
+| amplifier     | the strength of the effect(default = 1)                                            |
+| showParticles | bool if effect particles should be visible(default = true)                         |
 
 **Example:**
 
@@ -530,7 +580,7 @@ This command is used to give an entity a specific effect and affect their gamepl
 Effect(
 	EffectType.jump_boost,
 	entity: Entity.Player(),
-	duration: 20,
+	duration: 20.seconds,
 	amplifier: 3,
 	showParticles: false
 )
@@ -549,6 +599,17 @@ Of course you can clear an effect again:
 ```dart
 Effect.clear(Entity.Player(),EffectType.jump_boost)
 ⇒ effect clear @p minecraft:jump_boost
+```
+
+From version 19.4 you can use Time.infinite() as duration to make the effect last forever 
+
+```dart
+Effect(
+	EffectType.saturation,
+	entity: Entity.Player(),
+	duration: Time.infinite(),
+)
+⇒ effect give @p minecraft:saturation infinite 1
 ```
 
 ## SetBlock
@@ -628,15 +689,18 @@ The clone command clones an Area to another Location with different modes.
 | ----------- | ---------------------------------- |
 | Area        | The Area that you want to copy     |
 | to          | A Location where to paste the area |
+| from        | Dimension to clone from(optional)  |
+| into        | Dimension to clone into(optional)  |
 
 **Example:**
 
 ```dart
 Clone(
 	Area(x1:0,y1:0,z1:0,x2:10,y2:10,z2:10),
-	to: Location.here()
+	to: Location.here(),
+	from: Dimension.overworld,
 )
-⇒ clone 0 0 0 10 10 10 ~ ~ ~
+⇒ clone from minecraft:overworld 0 0 0 10 10 10 ~ ~ ~
 ```
 
 There are also the masked and replace modes:
@@ -646,6 +710,8 @@ There are also the masked and replace modes:
 | Area                          | ...                                                                        |
 | to                            | ...                                                                        |
 | mode                          | a String assembling another option(optional. either normal, force or move) |
+| from                          | Dimension to clone from(optional)                                          |
+| into                          | Dimension to clone into(optional)                                          |
 
 The same goes with `Clone.filtered` but it also accepts a property called block to just copy the specified block
 
@@ -915,12 +981,12 @@ Item.SpawnEgg(
 
 <iframe width="560" height="315" style="margin: 0 calc(50% - 280px)" src="https://www.youtube-nocookie.com/embed/OMUokMwfalA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Schedule schedules a file for the future. It delays its execution by the given ticks.
+Schedule schedules a file for the future. It delays its execution by the given time.
 
 | constructor |                                                    |
 | ----------- | -------------------------------------------------- |
 | String      | name of a function(without namespace)              |
-| ticks       | the delay                                          |
+| ticks       | the delay as [Time](/basics/time)                  |
 | mode        | either ScheduleMode.replace or ScheduleMode.append |
 
 You can also use Schedule.file that requires a file instead to define both in one statement.
@@ -928,7 +994,7 @@ You can also use Schedule.file that requires a file instead to define both in on
 **Example:**
 
 ```dart
-Schedule("timer",ticks:20)
+Schedule("timer",ticks:20.ticks)
 ⇒ schedule function example:timer 20t
 ```
 
@@ -946,9 +1012,9 @@ Schedule.append(
 		"timer",
 		child:Log("test")
 	),
-	ticks:20,
+	ticks:20.seconds,
 )
-⇒ schedule function example:timer 20t append
+⇒ schedule function example:timer 20s append
 ```
 
 ### Schedule.clear
@@ -1196,3 +1262,90 @@ The Attribute Widget adds certain abilities to an entity. This Widget gives you 
 | scale                  | scaling of the retured value(optional) |
 
 > You can store the retured value in a Score using Score.setToWidget
+
+## Return 
+
+Simple return command with integer return value `val`
+
+Can be used in conjunction with *File* and scores to calculate with the return value:
+```dart
+Score(Entity.Self(),'test') << File('filename', child: Return(5));
+```
+
+
+## FillBiome
+Fills an area with a specified biome similar to the Fill widget
+
+Optionally you can only replace another biome by setting `replace`.
+
+| constructor             |                                     |
+| ----------------------- | ----------------------------------- |
+| [Biome](/basics/#biome) | biome to set                        |
+| area                    | the [Area](/basics/#area) to change |
+| replace                 | a Biome to replace (optional)       |
+
+
+```dart
+FillBiome(
+	Biomes.dark_forest,
+	area: Area.fromRanges(x: 10, dx: 10, dz: 10),
+)
+⇒ fillbiome 10 0 0 20 0 0 minecraft:dark_forest
+```
+
+## Damage 
+Wrapper for the damage command which simulates the situation of causing damage to the entity.
+
+| constructor |                                                                           |
+| ----------- | ------------------------------------------------------------------------- |
+| Entity      | target entity                                                             |
+| amount      | floating point number (must >= 0)                                         |
+| damageType  | String type of damage(optional)                                           |
+| location    | Location where to deal the damage(optional)                               |
+| by          | Entity which deals damage(optional, not together with location)           |
+| cause       | specifies the cause Entity of the damage(optional, only together with by) |
+
+```dart 
+Damage(
+	Entity.Self(), 
+	amount: 4.5, 
+	damageType: "minecraft:falling_block"
+)
+⇒ damage @s 4.5 minecraft:falling_block
+```
+
+For the `by` and `location` subcommands there exist seperate constructors:
+
+| Damage.at  |                                   |
+| ---------- | --------------------------------- |
+| Location   | Location where to deal the damage |
+| target     | target entity                     |
+| amount     | floating point number (must >= 0) |
+| damageType | String type of damage(optional)   |
+
+| Damage.by  |                                                                           |
+| ---------- | ------------------------------------------------------------------------- |
+| Entity     | Entity which deals damage                                                 |
+| target     | target entity                                                             |
+| amount     | floating point number (must >= 0)                                         |
+| damageType | String type of damage(optional)                                           |
+| cause      | specifies the cause Entity of the damage(optional, only together with by) |
+
+## Ride 
+Makes one entity ride another. 
+
+| constructor |                                            |
+| ----------- | ------------------------------------------ |
+| Entity      | target entity                              |
+| Entity      | vehicle entity, eg. boat, minecart, animal |
+
+```dart
+Ride(Entity.Self(), Entity(type: Entities.minecart, limit:1)) 
+⇒ ride @s mount @e[limit=1,type=minecraft:minecart]
+```
+
+With `Ride.dismount` you can dismount an entity again: 
+
+| Ride.dismount |               |
+| ------------- | ------------- |
+| Entity        | target entity |
