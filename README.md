@@ -98,25 +98,16 @@ Or
 <div class="hero" style="padding:16px"><a class="nav-link action-button" href="https://discord.gg/McYXVC8">Join the Discord</a></div>
 
 ## Changelog of all the recent additions
+## 0.4.7
 
-### 0.4.5
-
-
-- added new Time object for dealing with ticks, seconds, days and infinite Duration
-- added time extensions to number allowing to write `10.seconds`, `2.ticks`, `2.4.minutes` etc. to generate time objects 
-- added FillBiome Widget
-- added Execute.on, Execute.summon and Heightmap
-- added Damage Widget
-- added Return Widget and Score.setToFunction tranfering the return value to a score
-- added Biome and corresponding Biomes list
-- added Display Widget for spawing display objects and animate them
-- added Interaction Widget for spawing interaction entities
-- ...
-
-**Breaking**: 
-
-- Effect, Schedule, Title, Repeat, Timer, ScoreTimer use the new Time object instead of an integer for representing time, you can just append a `.ticks` to the old integer: `ticks: 10 => ticks: 10.ticks` 
-- objD now requires Dart 3, please check if you have the newest version of dart and run `dart fix`  
-- Dimension is no longer an Enum. `Execute.dimension` no longer accepts strings, when using a custom dimension use `Dimension(<name>)`
+- added arguments methods on context to generate macro commands introduced in 1.20.2
+- added Random Widget
+- added Return.run and Return.fail subcommands
+- added supportedFormats and packFormat to Project, default version is now 20.4 
+- added arguments field for File.execute to run functions with arguments
+- updated blocks, items, particles and entities to include content from 1.20.4 and 23w51b
+- updated documentation links to the new minecraft wiki https://minecraft.wiki (thanks @Spongecade)
+- fixed Entity to introduce a trailing comma when given empty tags
+- fixed Entity.Clone to deep copy, instead of shallow copy (thanks @CCpcalvin)  
 
 <div class="hero" style="padding:16px"><a class="nav-link action-button" href="/changes">Full Changelog</a></div>

@@ -38,6 +38,7 @@ module.exports = {
       { text: "Utils", link: "/utils/" },
       { text: "Modules", link: "/modules/" },
       { text: "CLI", link: "/cli/" },
+      { text: 'Github', link: 'https://github.com/Stevertus/objD' }
     ],
     algolia: {
       apiKey: "e5a445386ffde17466c8fc95f42b0915",

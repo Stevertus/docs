@@ -93,6 +93,17 @@ Widget generate(Context context) {
 }
 ```
 
+To write the macro line `$data merge entity ${eArg} {uuid:[I;1,2,3,${iArg}]}`, you can use for instance:
+```dart
+Widget generate(Context context) {
+    final iArg = c.intArgument('iArg');
+    final Entity eArg = c.argument('eArg');
+    return Data.merge(eArg, nbt: {
+          "uuid": UUID(1, 2, 3, iArg),
+    }),
+}
+```
+
 > Important to know: objD generates random numbers for every argument except String. After the command has generated with the variable, the number now in string format is replaced with the macro name. 
 > If you modify the variable in any way that alters the toString return value, this won't work. If you need a custom solution, use the `buildArgument` method.
 
