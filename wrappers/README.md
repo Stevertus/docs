@@ -1272,6 +1272,14 @@ Can be used in conjunction with *File* and scores to calculate with the return v
 Score(Entity.Self(),'test') << File('filename', child: Return(5));
 ```
 
+Use `Return.run(Widget)` to return the success and value of a single command.
+Important: The provided Widget should just return a **single command**!
+
+```dart
+Return.run(Data.get(Entity.All(), path: 'path'))
+```
+
+If you want to return a failing state(success & value = 0), you can use `Return.fail()`.
 
 ## FillBiome
 Fills an area with a specified biome similar to the Fill widget
@@ -1349,3 +1357,29 @@ With `Ride.dismount` you can dismount an entity again:
 | Ride.dismount |               |
 | ------------- | ------------- |
 | Entity        | target entity |
+
+
+## Random
+
+Generate a random value from a given Range.
+
+| constructor |                                                      |
+| ----------- | ---------------------------------------------------- |
+| Range       | the range to take values from                        |
+| roll        | if true announces the value in the chat(random roll) |
+| sequence    | sequence to pull deterministic values from(optional) |
+
+```dart
+Random(Range(from: 1, to: 5), roll: false, sequence: 'my_sequence') 
+⇒ random value 1..5 my_sequence
+```
+
+Using Random.reset, you can reset a particular sequence. You can specify a seed value and whether to include the sequence name and world in the generation of numbers.
+
+
+| Random.reset      |                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------- |
+| String            | sequence id                                                                               |
+| seed              | integer seed value(optional)                                                              |
+| includeWorldSeed  | set to false if sequence should be independent of your world (optional, seed is required) |
+| includeSequenceId | set to false to make sequence independent of the id (optional, seed is required)          |

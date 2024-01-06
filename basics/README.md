@@ -62,16 +62,64 @@ class LoadWidget extends Widget {
 }
 ```
 
+### Macros / Function Arguments
+
+Minecraft 1.20.2 added the feature to call functions with arguments that are replaced at runtime.
+These macro commands have the following form: 
+```
+$say This is a macro line, using $(key_1)!
+```
+
+As objD is typesafe, this dynamic replacement proofs to be challenging to implement for all types.
+Here is a list of the supported types and the corresponding functions on Context. 
+
+| Type     | function                       |
+| -------- | ------------------------------ |
+| String   | stringArgument                 |
+| int      | intArgument                    |
+| double   | doubleArgument                 |
+| Entity   | entityArgument                 |
+| Score    | scoreArgument                  |
+| Location | locationArgument               |
+| T        | buildArgument (custom builder) |
+
+A generic `argument` function is also available that figures out which of these methods to use based on the expected return type.
+
+In order to use these arguments, call these functions in your generate method:  
+```dart 
+Widget generate(Context context) {
+    final key_1 = context.stringArgument('key_1');
+	return Say('This is a macro line, using $key_1')
+}
+```
+
+> Important to know: objD generates random numbers for every argument except String. After the command has generated with the variable, the number now in string format is replaced with the macro name. 
+> If you modify the variable in any way that alters the toString return value, this won't work. If you need a custom solution, use the `buildArgument` method.
+
+### Custom Arguments
+In cases where the types do not suffice or the string replacement does not work properly, you can create a custom argument with `buildArgument`. 
+The context generates a non conflicting double for you, and you can provide an instance of the type and optionally override the string value that is going to be replaced:
+
+```dart
+final key_2 = context.buildArgument('key_2', (value) {
+	final time = Time.duration(seconds: value);
+	return (time, time.toString(reduce: false))
+});
+```
+
+
 ## Project
 
 The project is a special Widget which is just defined once. It contains some built options, like description or name, but also the entire underlying tree of packs, files and actions.
 
-| constructor   |                                                                |
-| ------------- | -------------------------------------------------------------- |
-| name          | the name of the datapack folder                                |
-| generate      | a widget that defines the projects content                     |
-| [description] | A description that will go in pack.mcmeta                      |
-| [version]     | The minimal supported Minecraft version as int (mc 1.16 -> 16) |
+| constructor        |                                                                |
+| ------------------ | -------------------------------------------------------------- |
+| name               | the name of the datapack folder                                |
+| generate           | a widget that defines the projects content                     |
+| [description]      | A description that will go in pack.mcmeta                      |
+| [version]          | The minimal supported Minecraft version as int (mc 1.16 -> 16) |
+| [packFormat]       | Override the pack format in the mcmeta                         |
+| [supportedFormats] | A list of supported pack formats for the mcmeta                |
 
 **Example:**
 
@@ -136,6 +184,7 @@ The File constructor has two required arguments:
 | create        | bool if the file should be created or just interpreted with execute(optional, default = true)            |
 | inheritFolder | bool if the file should use the inherited path from using Folder Widgets or use the root(default = true) |
 | pack          | overrides the automatically detected namespace(optional)                                                 |
+| arguments     | a Map, Storage, Entity or Location to get properties to replace 1.20 macros with                         |
 
 The File class can be used as often as you want and where you want, so you can also define a new file in a For container for example.
 **Example:**
